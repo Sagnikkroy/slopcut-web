@@ -4,13 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cut the Slop</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lancelot&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
+    .headmain {
+      font-family: 'Lancelot', cursive;
+      font-size: 4.5rem;
+      line-height: 1.1;
+      font-weight: 550;
+      color: #111827;
+    }
+
     .tweets-track {
       display: flex;
       flex-direction: column;
       gap: 0;
-      animation: scrollUp 26s linear infinite;
+      animation: scrollUp 15s linear infinite;
     }
 
     @keyframes scrollUp {
@@ -24,6 +40,11 @@
       border-top: 1px solid #e1e8ed;
       border-bottom: 1px solid #e1e8ed;
       flex-shrink: 0;
+    }
+
+    .ticker-box {
+      position: relative;
+      overflow: hidden;
     }
 
     .ticker-box::before,
@@ -53,43 +74,68 @@
       font-size: 11px;
       font-weight: 600;
       padding: 2px 6px;
-      border-radius: 0px;
+      border-radius: 0;
       margin-left: 8px;
     }
   </style>
 </head>
 <body class="bg-white min-h-screen">
 
-  <div class="container mx-auto px-6 lg:px-12 flex flex-col lg:flex-row lg:items-center min-h-screen gap-12 lg:gap-20 py-12 lg:py-0">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-50">
+    <div class="container mx-auto px-6 lg:px-12">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-8">
+          <a href="/" class="flex items-center">
+            <svg width="140" height="32" viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <text x="0" y="24" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="800" fill="#111827">Slopcut</text>
+              <path d="M108 8 L124 24 L108 40" stroke="#ff1c1f" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <nav class="hidden md:flex items-center space-x-8">
+            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium transition">About</a>
+            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium transition">Docs</a>
+            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium transition">Pricing</a>
+            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium transition">Blog</a>
+          </nav>
+        </div>
+        <a href="#" class="bg-black text-white px-6 py-2.5 rounded-md font-medium hover:bg-gray-800 transition whitespace-nowrap">
+          Try for free
+        </a>
+      </div>
+    </div>
+  </header>
 
-    <!-- Right side (ticker) - appears FIRST on mobile -->
+  <!-- Main Content -->
+  <div class="container mx-auto px-6 lg:px-12 flex flex-col lg:flex-row lg:items-center min-h-screen gap-12 lg:gap-20 py-12 lg:py-0 pt-20 lg:pt-24">
+    
+    <!-- Ticker (Right on desktop) -->
     <div class="w-full lg:w-1/2 flex justify-center order-1 lg:order-2">
-      <div class="relative w-full max-w-md ticker-box overflow-hidden bg-white">
+      <div class="ticker-box w-full max-w-md bg-white">
         <div class="h-96">
           <div class="tweets-track" id="tweetsTrack"></div>
         </div>
       </div>
     </div>
 
-    <!-- Left side (headline) - appears SECOND on mobile -->
+    <!-- Headline (Left on desktop) -->
     <div class="w-full lg:w-1/2 max-w-lg order-2 lg:order-1">
-      <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
-        Cut that slop off your site!
+      <h1 class="headmain">
+        Cut that <em>AI Slop</em> off your site!
       </h1>
       <p class="mt-6 text-xl text-gray-600">
-        Remove the bloat, the noise, the garbage. Ship fast, clean, purposeful websites.
+        With Slopcut detect AI Generated content published on your site
       </p>
     </div>
-
   </div>
 
   <script>
     const tweets = [
-      { user: "alexchen",     handle: "@alexchen_co", text: "My site used to load 8 MB of JS just to show a blog post. After cleaning it up it’s under 80 KB. Feels illegal how fast it is now.", likes: "412", rts: "87", time: "2h" },
-      { user: "sarah_dev",    handle: "@sarah_dev",   text: "Just removed 14 tracking scripts and 3 analytics dashboards nobody ever looked at. Site speed went from 4s → 0.9s. My users sent me thank you emails.", likes: "1.2k", rts: "289", time: "5h" },
-      { user: "mike_js",      handle: "@mike_js",     text: "If your homepage weighs more than this tweet, you have failed as a web developer.", likes: "3.8k", rts: "912", time: "1d" },
-      { user: "lena_ui",      handle: "@lena_ui",     text: "Deleted the carousel, the cookie banner framework, the chat widget, and the “helpful” tooltip library. My lighthouse score is 100 and I feel reborn.", likes: "956", rts: "134", time: "3h" },
-      { user: "devops_dan",   handle: "@devops_dan",  text: "Users don’t want features. They want the page to load before they lose interest.", likes: "2.5k", rts: "678", time: "7h" }
+      { user: "alexchen", handle: "@alexchen_co", text: "My site used to load 8 MB of JS just to show a blog post. After cleaning it up it’s under 80 KB. Feels illegal how fast it is now.", time: "2h" },
+      { user: "sarah_dev", handle: "@sarah_dev", text: "Just removed 14 tracking scripts and 3 analytics dashboards nobody ever looked at. Site speed went from 4s → 0.9s. My users sent me thank you emails.", time: "5h" },
+      { user: "mike_js", handle: "@mike_js", text: "If your homepage weighs more than this tweet, you have failed as a web developer.", time: "1d" },
+      { user: "lena_ui", handle: "@lena_ui", text: "Deleted the carousel, the cookie banner framework, the chat widget, and the “helpful” tooltip library. My lighthouse score is 100 and I feel reborn.", time: "3h" },
+      { user: "devops_dan", handle: "@devops_dan", text: "Users don’t want features. They want the page to load before they lose interest.", time: "7h" }
     ];
 
     const track = document.getElementById("tweetsTrack");
@@ -97,13 +143,11 @@
     function createTweet(t) {
       const div = document.createElement("div");
       div.className = "tweet";
-
-      // Random AI detection percentage (88-97%)
       const aiPercent = 88 + Math.floor(Math.random() * 10);
 
       div.innerHTML = `
         <div class="flex items-start gap-3">
-          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${t.user}" class="w-12 h-12 rounded-full flex-shrink-0" alt="">
+          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${t.user}" class="w-12 h-12 rounded-full flex-shrink-0" alt="${t.user}">
           <div class="flex-1 min-w-0">
             <div class="flex items-center gap-1 flex-wrap">
               <strong class="font-semibold truncate">${t.user}</strong>
@@ -112,18 +156,13 @@
               <span class="ai-badge">${aiPercent}% detected as AI</span>
             </div>
             <p class="mt-1 text-gray-900">${t.text}</p>
-            <div class="flex gap-6 mt-3 text-gray-500 text-sm">
-              <span>💬 42</span>
-              <span>🔁 ${t.rts}</span>
-              <span>❤️ ${t.likes}</span>
-            </div>
           </div>
         </div>
       `;
       return div;
     }
 
-    // Duplicate for seamless infinite scroll
+    // Duplicate tweets for seamless loop
     tweets.forEach(t => track.appendChild(createTweet(t)));
     tweets.forEach(t => track.appendChild(createTweet(t)));
   </script>
