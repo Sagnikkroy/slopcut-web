@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cut the Slop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .tweets-track {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      animation: scrollUp 26s linear infinite;
+    }
+
+    @keyframes scrollUp {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+
+    .tweet {
+      padding: 20px 16px;
+      background: white;
+      border-top: 1px solid #e1e8ed;
+      border-bottom: 1px solid #e1e8ed;
+      flex-shrink: 0;
+    }
+
+    .ticker-box::before,
+    .ticker-box::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 60px;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .ticker-box::before {
+      top: 0;
+      background: linear-gradient(to bottom, white 0%, transparent 100%);
+    }
+
+    .ticker-box::after {
+      bottom: 0;
+      background: linear-gradient(to top, white 0%, transparent 100%);
+    }
+
+    .ai-badge {
+      background: #ff1c1f;
+      color: white;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 0px;
+      margin-left: 8px;
+    }
+  </style>
+</head>
+<body class="bg-white min-h-screen">
+
+  <div class="container mx-auto px-6 lg:px-12 flex flex-col lg:flex-row lg:items-center min-h-screen gap-12 lg:gap-20 py-12 lg:py-0">
+
+    <!-- Right side (ticker) - appears FIRST on mobile -->
+    <div class="w-full lg:w-1/2 flex justify-center order-1 lg:order-2">
+      <div class="relative w-full max-w-md ticker-box overflow-hidden bg-white">
+        <div class="h-96">
+          <div class="tweets-track" id="tweetsTrack"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Left side (headline) - appears SECOND on mobile -->
+    <div class="w-full lg:w-1/2 max-w-lg order-2 lg:order-1">
+      <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
+        Cut that slop off your site!
+      </h1>
+      <p class="mt-6 text-xl text-gray-600">
+        Remove the bloat, the noise, the garbage. Ship fast, clean, purposeful websites.
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    const tweets = [
+      { user: "alexchen",     handle: "@alexchen_co", text: "My site used to load 8 MB of JS just to show a blog post. After cleaning it up it’s under 80 KB. Feels illegal how fast it is now.", likes: "412", rts: "87", time: "2h" },
+      { user: "sarah_dev",    handle: "@sarah_dev",   text: "Just removed 14 tracking scripts and 3 analytics dashboards nobody ever looked at. Site speed went from 4s → 0.9s. My users sent me thank you emails.", likes: "1.2k", rts: "289", time: "5h" },
+      { user: "mike_js",      handle: "@mike_js",     text: "If your homepage weighs more than this tweet, you have failed as a web developer.", likes: "3.8k", rts: "912", time: "1d" },
+      { user: "lena_ui",      handle: "@lena_ui",     text: "Deleted the carousel, the cookie banner framework, the chat widget, and the “helpful” tooltip library. My lighthouse score is 100 and I feel reborn.", likes: "956", rts: "134", time: "3h" },
+      { user: "devops_dan",   handle: "@devops_dan",  text: "Users don’t want features. They want the page to load before they lose interest.", likes: "2.5k", rts: "678", time: "7h" }
+    ];
+
+    const track = document.getElementById("tweetsTrack");
+
+    function createTweet(t) {
+      const div = document.createElement("div");
+      div.className = "tweet";
+
+      // Random AI detection percentage (88-97%)
+      const aiPercent = 88 + Math.floor(Math.random() * 10);
+
+      div.innerHTML = `
+        <div class="flex items-start gap-3">
+          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${t.user}" class="w-12 h-12 rounded-full flex-shrink-0" alt="">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-1 flex-wrap">
+              <strong class="font-semibold truncate">${t.user}</strong>
+              <span class="text-gray-500">${t.handle}</span>
+              <span class="text-gray-500">· ${t.time}</span>
+              <span class="ai-badge">${aiPercent}% detected as AI</span>
+            </div>
+            <p class="mt-1 text-gray-900">${t.text}</p>
+            <div class="flex gap-6 mt-3 text-gray-500 text-sm">
+              <span>💬 42</span>
+              <span>🔁 ${t.rts}</span>
+              <span>❤️ ${t.likes}</span>
+            </div>
+          </div>
+        </div>
+      `;
+      return div;
+    }
+
+    // Duplicate for seamless infinite scroll
+    tweets.forEach(t => track.appendChild(createTweet(t)));
+    tweets.forEach(t => track.appendChild(createTweet(t)));
+  </script>
+</body>
+</html>
