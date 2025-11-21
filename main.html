@@ -26,6 +26,9 @@
       color: #111827;
     }
     .headmain em { font-style: italic; }
+    @media screen {
+        
+    }
     .subtext {
       margin-top: 1.5rem;
       font-size: 1.25rem;
@@ -88,7 +91,7 @@
       height: 100%;
       width: 100%;
     }
-    .hero-text-col { width: 100%; order: 1; }
+    .hero-text-col { width: 100%; order: 1;text-align: center; }
     .hero-visual-col {
       width: 100%;
       display: flex;
@@ -98,6 +101,12 @@
     @media (min-width: 1024px) {
   .hero-text-col { order: 2; }
   .hero-visual-col { order: 1; }
+    .hero-text-col { 
+    order: 2;
+    text-align: left;  /* ADD THIS - left-aligns text on desktop */
+  }
+
+ 
 }
     /* REMOVED the @media (min-width: 1024px) block that made it side-by-side */
     /* --- BACKGROUND LAYER STYLE --- */
@@ -210,10 +219,10 @@
 
   <script>
     const tweets = [
-      { user: "alexchen", handle: "@alexchen_co", text: "My site used to load 8 MB of JS just to show a blog post. After cleaning it up it’s under 80 KB. Feels illegal how fast it is now.", time: "2h" },
+      { user: "alexchen", handle: "@alexchen_co", text: "Interesting perspective! Definitely something to think about", time: "2h" },
       { user: "sarah_dev", handle: "@sarah_dev", text: "Just removed 14 tracking scripts and 3 analytics dashboards nobody ever looked at. Site speed went from 4s → 0.9s. My users sent me thank you emails.", time: "5h" },
-      { user: "mike_js", handle: "@mike_js", text: "If your homepage weighs more than this tweet, you have failed as a web developer.", time: "1d" },
-      { user: "lena_ui", handle: "@lena_ui", text: "Deleted the carousel, the cookie banner framework, the chat widget, and the “helpful” tooltip library. My lighthouse score is 100 and I feel reborn.", time: "3h" },
+      { user: "mike_js", handle: "@mike_js", text: "I’m not sure I fully agree, but the way you articulated your reasoning is surprisingly compelling. It’s the kind of perspective that encourages people to think more deeply about the topic.", time: "1d" },
+      { user: "lena_ui", handle: "@lena_ui", text: "This is a surprisingly thoughtful breakdown, and it’s clear you put effort into framing it. Whether people agree or not, it’s a contribution that pushes the discussion forward.", time: "3h" },
       { user: "devops_dan", handle: "@devops_dan", text: "Users don’t want features. They want the page to load before they lose interest.", time: "7h" }
     ];
     const track = document.getElementById("tweetsTrack");
