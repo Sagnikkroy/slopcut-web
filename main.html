@@ -4,14 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cut the Slop</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lancelot&display=swap" rel="stylesheet">
-
-  <script src="https://cdn.tailwindcss.com"></script>
-
   <style>
+    /* --- RESET & BASE --- */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #ffffff;
+      min-height: 100vh;
+      position: relative;
+      color: #111827;
+    }
+    /* --- TYPOGRAPHY --- */
     .headmain {
       font-family: 'Lancelot', cursive;
       font-size: 4.5rem;
@@ -19,186 +25,177 @@
       font-weight: 550;
       color: #111827;
     }
-
-    /* --- HEADER STYLES --- */
-    .site-header {
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 50;
+    .headmain em { font-style: italic; }
+    .subtext {
+      margin-top: 1.5rem;
+      font-size: 1.25rem;
+      color: #1f2937;
+      font-weight: 500;
     }
-
-    .header-container {
+    /* --- LAYOUT UTILS --- */
+    .container {
       width: 100%;
       margin-left: auto;
       margin-right: auto;
       padding-left: 1.5rem;
       padding-right: 1.5rem;
+      max-width: 1280px;
     }
-
     @media (min-width: 1024px) {
-      .header-container {
-        padding-left: 3rem;
-        padding-right: 3rem;
-      }
+      .container { padding-left: 3rem; padding-right: 3rem; }
     }
-
-    .header-row {
+    /* --- HEADER STYLES --- */
+    .site-header {
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.203), rgba(255, 255, 255, 0));
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+    }
+    .header-row { display: flex; align-items: center; justify-content: space-between; height: 4rem; }
+    .header-left { display: flex; align-items: center; gap: 2rem; }
+    .logo-link { display: flex; align-items: center; text-decoration: none; }
+    .main-nav { display: none; align-items: center; gap: 2rem; }
+    .main-nav a { text-decoration: none; color: #374151; font-weight: 500; transition: color 0.2s; }
+    .main-nav a:hover { color: #111827; }
+    @media (min-width: 768px) { .main-nav { display: flex; } }
+    .cta-btn {
+      background-color: #000000; color: #ffffff; padding: 0.625rem 1.5rem;
+      border-radius: 1.5rem; font-weight: 500; text-decoration: none; white-space: nowrap;
+      transition: background-color 0.2s;
+    }
+    .cta-btn:hover { background-color: #1f2937; }
+    /* --- HERO SECTION --- */
+    .hero-wrapper {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      height: 4rem;
     }
-
+    .hero-content-row {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+      height: 100%;
+      width: 100%;
+    }
+    .hero-text-col { width: 100%; order: 2; }
+    .hero-visual-col {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      order: 1;
+    }
+    /* REMOVED the @media (min-width: 1024px) block that made it side-by-side */
     /* --- BACKGROUND LAYER STYLE --- */
     .hero-bg-layer {
       position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      z-index: 0; 
-      
+      top: 0; bottom: 0; left: 0; z-index: 0;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-
-      /* MOBILE DEFAULT: Top/Bottom Gradients only */
-      background-image: 
-        linear-gradient(to bottom, #ffffff 0%, transparent 25%),
+      width: 100%;
+      height: 50%;
+      background-image:
+       
         linear-gradient(to top, #ffffff 0%, transparent 25%),
-        url('asset/hero.png');
+        url('asset/bghero.png');
     }
-
- /* DESKTOP: Add Left Gradient & Fix Gap */
-    @media (min-width: 1024px) {
-      .hero-bg-layer {
-        /* FORCE width to overlap slightly to kill the sub-pixel gap */
-        width: 50.5% !important; 
-        
-        background-image: 
-          linear-gradient(to bottom, #ffffff 0%, transparent 35%),
-          /* Aggressive white stop: Solid white for the first 2% from the right */
-          linear-gradient(to left, #ffffff 0%, #ffffff 2%, transparent 100%),
-          linear-gradient(to top, #ffffff 0%, transparent 35%),
-          url('asset/hero.png');
-      }
+    /* Also removed the desktop version of .hero-bg-layer to keep it simple */
+    /* --- TICKER / TWEETS STYLES --- */
+    .ticker-box {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      max-width: 35rem;
+      background: white;
+      border-radius: 2.0rem;
     }
-
-    /* --- TICKER STYLES --- */
+    .ticker-window { height: 24rem; }
     .tweets-track {
       display: flex;
       flex-direction: column;
       gap: 0;
       animation: scrollUp 15s linear infinite;
     }
-
     @keyframes scrollUp {
       0%   { transform: translateY(0); }
       100% { transform: translateY(-50%); }
     }
-
-    .tweet {
-      padding: 20px 16px;
-      background: white;
-      /* UPDATED: Removed border-top, kept border-bottom for clean separation */
-      border-bottom: 1px solid #f3f4f6; 
-      flex-shrink: 0;
-    }
-
-    .ticker-box {
-      position: relative;
-      overflow: hidden;
-    }
-
     .ticker-box::before,
     .ticker-box::after {
       content: '';
       position: absolute;
-      left: 0;
-      right: 0;
+      left: 0; right: 0;
       height: 60px;
       pointer-events: none;
       z-index: 10;
     }
-
-    .ticker-box::before {
-      top: 0;
-      background: linear-gradient(to bottom, white 0%, transparent 100%);
-    }
-
-    .ticker-box::after {
-      bottom: 0;
-      background: linear-gradient(to top, white 0%, transparent 100%);
-    }
-
+    .ticker-box::before { top: 0; background: linear-gradient(to bottom, white 0%, transparent 100%); }
+    .ticker-box::after { bottom: 0; background: linear-gradient(to top, white 0%, transparent 100%); }
+    /* Individual Tweet Styling */
+    .tweet { padding: 20px 16px; background: white; border-bottom: 1px solid #f3f4f6; flex-shrink: 0; }
+    .tweet-inner { display: flex; align-items: flex-start; gap: 0.75rem; }
+    .tweet-avatar { width: 3rem; height: 3rem; border-radius: 9999px; flex-shrink: 0; }
+    .tweet-content { flex: 1; min-width: 0; }
+    .tweet-header { display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
+    .tweet-name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tweet-meta { color: #6b7280; }
+    .tweet-text { margin-top: 0.25rem; color: #111827; }
     .ai-badge {
-      background: #ff1c1f;
-      color: white;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 2px 6px;
-      border-radius: 0;
-      margin-left: 8px;
+      background: #ff1c1f; color: white; font-size: 11px; font-weight: 600;
+      padding: 2px 6px; border-radius: 0; margin-left: 8px; display: inline-block;
     }
+    .content-relative { position: relative; z-index: 10; }
   </style>
 </head>
-<body class="bg-white min-h-screen relative">
-
+<body>
   <header class="site-header">
-    <div class="container header-container">
+    <div class="container">
       <div class="header-row">
-        
-        <div class="flex items-center gap-8">
-          <a href="/" class="flex items-center">
+        <div class="header-left">
+          <a href="/" class="logo-link">
             <svg width="140" height="32" viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <text x="0" y="24" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="800" fill="#111827">Slopcut</text>
               <path d="M108 8 L124 24 L108 40" stroke="#ff1c1f" stroke-width="4" stroke-linecap="round"/>
             </svg>
           </a>
-          <nav class="hidden md:flex items-center space-x-8">
-            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium transition">About</a>
-            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium transition">Docs</a>
-            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium transition">Pricing</a>
-            <a href="#" class="text-gray-700 hover:text-gray-900 font-medium transition">Blog</a>
+          <nav class="main-nav">
+            <a href="#">About</a>
+            <a href="#">Docs</a>
+            <a href="#">Pricing</a>
+            <a href="#">Blog</a>
           </nav>
         </div>
-
-        <a href="#" class="bg-black text-white px-6 py-2.5 rounded-md font-medium hover:bg-gray-800 transition whitespace-nowrap">
-          Try for free
-        </a>
-
+        <a href="#" class="cta-btn">Try for free</a>
       </div>
     </div>
   </header>
 
-  <div class="relative min-h-screen w-full flex items-center">
-    
-    <div class="hero-bg-layer w-full h-1/2 lg:h-full lg:w-1/2"></div>
-
-    <div class="container mx-auto px-6 lg:px-12 relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12 py-24 lg:py-0 h-full">
-      
-      <div class="w-full lg:w-1/2 max-w-lg order-2 lg:order-1">
-        <h1 class="headmain">
-          Cut that <em>AI Slop</em> off your site!
-        </h1>
-        <p class="mt-6 text-xl text-gray-800 font-medium">
-          With Slopcut detect AI Generated content published on your site instantly
-        </p>
-      </div>
-
-      <div class="w-full lg:w-1/2 flex justify-center order-1 lg:order-2">
-        <div class="ticker-box w-full max-w-md bg-white rounded-lg">
-          <div class="h-96">
-            <div class="tweets-track" id="tweetsTrack"></div>
+  <div class="hero-wrapper">
+    <div class="hero-bg-layer"></div>
+    <div class="container content-relative">
+      <div class="hero-content-row">
+        <div class="hero-text-col">
+          <h1 class="headmain">
+            Cut that <em>AI Slop</em> off your site!
+          </h1>
+          <p class="subtext">
+            With Slopcut detect AI Generated content published on your site instantly
+          </p>
+        </div>
+        <div class="hero-visual-col">
+          <div class="ticker-box">
+            <div class="ticker-window">
+              <div class="tweets-track" id="tweetsTrack"></div>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -210,31 +207,27 @@
       { user: "lena_ui", handle: "@lena_ui", text: "Deleted the carousel, the cookie banner framework, the chat widget, and the “helpful” tooltip library. My lighthouse score is 100 and I feel reborn.", time: "3h" },
       { user: "devops_dan", handle: "@devops_dan", text: "Users don’t want features. They want the page to load before they lose interest.", time: "7h" }
     ];
-
     const track = document.getElementById("tweetsTrack");
-
     function createTweet(t) {
       const div = document.createElement("div");
       div.className = "tweet";
       const aiPercent = 88 + Math.floor(Math.random() * 10);
-
       div.innerHTML = `
-        <div class="flex items-start gap-3">
-          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${t.user}" class="w-12 h-12 rounded-full flex-shrink-0" alt="${t.user}">
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-1 flex-wrap">
-              <strong class="font-semibold truncate">${t.user}</strong>
-              <span class="text-gray-500">${t.handle}</span>
-              <span class="text-gray-500">· ${t.time}</span>
+        <div class="tweet-inner">
+          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${t.user}" class="tweet-avatar" alt="${t.user}">
+          <div class="tweet-content">
+            <div class="tweet-header">
+              <strong class="tweet-name">${t.user}</strong>
+              <span class="tweet-meta">${t.handle}</span>
+              <span class="tweet-meta">· ${t.time}</span>
               <span class="ai-badge">${aiPercent}% detected as AI</span>
             </div>
-            <p class="mt-1 text-gray-900">${t.text}</p>
+            <p class="tweet-text">${t.text}</p>
           </div>
         </div>
       `;
       return div;
     }
-
     tweets.forEach(t => track.appendChild(createTweet(t)));
     tweets.forEach(t => track.appendChild(createTweet(t)));
   </script>
