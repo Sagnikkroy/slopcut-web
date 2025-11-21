@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cut the Slop</title>
 
-  <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lancelot&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
@@ -22,6 +20,76 @@
       color: #111827;
     }
 
+    /* --- HEADER STYLES --- */
+    .site-header {
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+    }
+
+    .header-container {
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      .header-container {
+        padding-left: 3rem;
+        padding-right: 3rem;
+      }
+    }
+
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 4rem;
+    }
+
+    /* --- BACKGROUND LAYER STYLE --- */
+    .hero-bg-layer {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 0; 
+      
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      /* MOBILE DEFAULT: Top/Bottom Gradients only */
+      background-image: 
+        linear-gradient(to bottom, #ffffff 0%, transparent 25%),
+        linear-gradient(to top, #ffffff 0%, transparent 25%),
+        url('asset/hero.png');
+    }
+
+ /* DESKTOP: Add Left Gradient & Fix Gap */
+    @media (min-width: 1024px) {
+      .hero-bg-layer {
+        /* FORCE width to overlap slightly to kill the sub-pixel gap */
+        width: 50.5% !important; 
+        
+        background-image: 
+          linear-gradient(to bottom, #ffffff 0%, transparent 35%),
+          /* Aggressive white stop: Solid white for the first 2% from the right */
+          linear-gradient(to left, #ffffff 0%, #ffffff 2%, transparent 100%),
+          linear-gradient(to top, #ffffff 0%, transparent 35%),
+          url('asset/hero.png');
+      }
+    }
+
+    /* --- TICKER STYLES --- */
     .tweets-track {
       display: flex;
       flex-direction: column;
@@ -37,8 +105,8 @@
     .tweet {
       padding: 20px 16px;
       background: white;
-      border-top: 1px solid #e1e8ed;
-      border-bottom: 1px solid #e1e8ed;
+      /* UPDATED: Removed border-top, kept border-bottom for clean separation */
+      border-bottom: 1px solid #f3f4f6; 
       flex-shrink: 0;
     }
 
@@ -79,12 +147,12 @@
     }
   </style>
 </head>
-<body class="bg-white min-h-screen">
+<body class="bg-white min-h-screen relative">
 
-  <!-- Header -->
-  <header class="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-50">
-    <div class="container mx-auto px-6 lg:px-12">
-      <div class="flex items-center justify-between h-16">
+  <header class="site-header">
+    <div class="container header-container">
+      <div class="header-row">
+        
         <div class="flex items-center gap-8">
           <a href="/" class="flex items-center">
             <svg width="140" height="32" viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -99,33 +167,38 @@
             <a href="#" class="text-gray-700 hover:text-gray-900 font-medium transition">Blog</a>
           </nav>
         </div>
+
         <a href="#" class="bg-black text-white px-6 py-2.5 rounded-md font-medium hover:bg-gray-800 transition whitespace-nowrap">
           Try for free
         </a>
+
       </div>
     </div>
   </header>
 
-  <!-- Main Content -->
-  <div class="container mx-auto px-6 lg:px-12 flex flex-col lg:flex-row lg:items-center min-h-screen gap-12 lg:gap-20 py-12 lg:py-0 pt-20 lg:pt-24">
+  <div class="relative min-h-screen w-full flex items-center">
     
-    <!-- Ticker (Right on desktop) -->
-    <div class="w-full lg:w-1/2 flex justify-center order-1 lg:order-2">
-      <div class="ticker-box w-full max-w-md bg-white">
-        <div class="h-96">
-          <div class="tweets-track" id="tweetsTrack"></div>
+    <div class="hero-bg-layer w-full h-1/2 lg:h-full lg:w-1/2"></div>
+
+    <div class="container mx-auto px-6 lg:px-12 relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12 py-24 lg:py-0 h-full">
+      
+      <div class="w-full lg:w-1/2 max-w-lg order-2 lg:order-1">
+        <h1 class="headmain">
+          Cut that <em>AI Slop</em> off your site!
+        </h1>
+        <p class="mt-6 text-xl text-gray-800 font-medium">
+          With Slopcut detect AI Generated content published on your site instantly
+        </p>
+      </div>
+
+      <div class="w-full lg:w-1/2 flex justify-center order-1 lg:order-2">
+        <div class="ticker-box w-full max-w-md bg-white rounded-lg">
+          <div class="h-96">
+            <div class="tweets-track" id="tweetsTrack"></div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Headline (Left on desktop) -->
-    <div class="w-full lg:w-1/2 max-w-lg order-2 lg:order-1">
-      <h1 class="headmain">
-        Cut that <em>AI Slop</em> off your site!
-      </h1>
-      <p class="mt-6 text-xl text-gray-600">
-        With Slopcut detect AI Generated content published on your site
-      </p>
     </div>
   </div>
 
@@ -162,7 +235,6 @@
       return div;
     }
 
-    // Duplicate tweets for seamless loop
     tweets.forEach(t => track.appendChild(createTweet(t)));
     tweets.forEach(t => track.appendChild(createTweet(t)));
   </script>
