@@ -17,6 +17,99 @@
       position: relative;
       color: #111827;
     }
+    .organic {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+      background-color: #ffffff;
+      margin-top: 50px;
+    }
+    .organic .cardio {
+  position: relative;
+   flex-direction: column; 
+   gap: 1.2rem;
+  width: 90%;
+  max-width: 80rem;
+  height:max-content;
+  padding: 2rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  overflow: hidden;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #111827;
+  isolation: isolate; /* keeps blur from leaking out */
+}
+
+.organic .cardio::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("asset/1763729240669.jpg") center/cover no-repeat;
+  filter: blur(10px);
+  z-index: -2;
+}
+
+.organic .cardio::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 176, 91, 0.5), rgba(0, 0, 0, 0.029));
+  z-index: -1;
+}
+    .organic .cardio p {
+      font-family: 'Lancelot', cursive;
+      color: #ffffff;
+      font-size: 3rem;
+      font-weight: 500;
+     
+    }
+    .input-wrapper {
+  width: 90%;
+  max-width: 42rem;         /* same cap as ticker */
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.typebar {
+  width: 100%;
+  min-height: 3.2rem;       /* 1 line */
+  max-height: calc(1.2em * 4 + 1.6rem); /* 4 lines */
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid #d1d5db;
+  border-radius: 50px;
+  resize: none;
+  overflow-y: auto;
+  line-height: 1.2;
+  background: #ffffff;
+  color: #111827;
+  font-family: inherit;
+  transition: border-color .2s;
+}
+.typebar:focus {
+  outline: none;
+ 
+}
+
+.detect-btn {
+  align-self: center;
+  background: #41ca8a;
+  color: #ffffff;
+  border: none;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s;
+}
+.detect-btn:hover { background: #1f2937; }
+    
+
     /* --- TYPOGRAPHY --- */
     .headmain {
       font-family: 'Lancelot', cursive;
@@ -80,6 +173,11 @@
       background-color: #000000; color: #ffffff; padding: 0.625rem 1.5rem;
       border-radius: 1.5rem; font-weight: 500; text-decoration: none; white-space: nowrap;
       transition: background-color 0.2s;
+    }
+    .cta-btny {
+      background-color: #00000000; color: #000000; padding: 1rem 1rem; font-size:x-large;
+      border-radius: 5.5rem; font-weight: 500; text-decoration: none; white-space: nowrap;
+      transition: background-color 0.2s; margin-left: 2vh;
     }
     .cta-btn:hover { background-color: #1f2937; }
     /* --- HERO SECTION --- */
@@ -180,6 +278,7 @@
   </style>
 </head>
 <body>
+     <section class="Hero">
   <header class="site-header">
     <div class="container">
       <div class="header-row">
@@ -197,8 +296,11 @@
             <a href="#">Blog</a>
           </nav>
         </div>
+        <div>
         <a href="#" class="cta-btn">Try for free</a>
+        <a href="#" class="cta-btny">𝕏</a></div>
       </div>
+      
     </div>
   </header>
 
@@ -224,6 +326,23 @@
       </div>
     </div>
   </div>
+ </section>
+ <section class="organic">
+  <div class="cardio">
+    <p>Filter out Organic content</p>
+
+    <!-- wrapper keeps bar + button together -->
+    <div class="input-wrapper">
+      <textarea
+        class="typebar"
+        rows="1"
+        maxlength="500"
+        placeholder="Paste text here…"
+      ></textarea>
+      <button class="detect-btn">Detect AI</button>
+    </div>
+  </div>
+</section>
 
   <script>
     const tweets = [
