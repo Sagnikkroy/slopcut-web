@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Origin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          animation: {
+            'morph-slow': 'morphSlow 12s ease-in-out infinite',
+            'wobble-aggressive': 'wobbleAggressive 8s ease-in-out infinite',
+            'breathe-core': 'breatheCore 6s ease-in-out infinite',
+            'dash': 'dash 4s linear infinite',
+          },
+          keyframes: {
+            morphSlow: {
+              '0%, 100%': { borderRadius: '40% 60% 50% 50% / 50% 50% 60% 40%', transform: 'translateY(-50%) scale(1) rotate(0deg)' },
+              '33%': { borderRadius: '60% 40% 60% 40% / 40% 60% 40% 60%', transform: 'translateY(-52%) scale(1.1) rotate(2deg)' },
+              '66%': { borderRadius: '45% 55% 30% 70% / 60% 30% 70% 40%', transform: 'translateY(-48%) scale(1.05) rotate(-2deg)' },
+            },
+            wobbleAggressive: {
+              '0%, 100%': { transform: 'translateY(-50%) translateX(0) scale(1)' },
+              '50%': { transform: 'translateY(-50%) translateX(15px) scale(1.08)' },
+            },
+            breatheCore: {
+              '0%, 100%': { opacity: '0.8', transform: 'translateY(-50%) scale(1)' },
+              '50%': { opacity: '1', transform: 'translateY(-50%) scale(1.08)' },
+            },
+            dash: { to: { 'stroke-dashoffset': '-30' } }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @keyframes moveAlongPath {
+      0%   { offset-distance: 0%;   opacity: 0;   transform: scale(0.5); }
+      20%  { opacity: 1;   transform: scale(1); }
+      80%  { opacity: 1;   transform: scale(0.95); }
+      100% { offset-distance: 100%; opacity: 0; transform: scale(0); }
+    }
+    /* Corresponds to flex-shrink-0 */
+.image-wrapper {
+  flex-shrink: 0;
+}
+
+/* Base styles (Mobile first) */
+.antidote-img {
+  /* w-48 (48 * 0.25rem = 12rem) */
+  width: 28rem; 
+  /* h-48 */
+  height: 28rem; 
+  
+  /* object-contain */
+  object-fit: contain; 
+  
+ 
+}
+
+/* Responsive styles (md: breakpoint - usually min-width 768px) */
+@media (min-width: 768px) {
+  .antidote-img {
+    /* md:w-96 (96 * 0.25rem = 24rem) */
+    width: 24rem; 
+    /* md:h-96 */
+    height: 24rem; 
+  }
+}
+  </style>
+</head>
+<body class="bg-[#000000FF] text-white overflow-hidden">
+
+  <div class="relative w-full h-screen">
+
+    <!-- GLOW LAYERS – Smaller & subtler on mobile -->
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      <!-- Outer Aura -->
+      <div class="absolute left-[-30%] top-1/2 -translate-y-1/2 
+        w-[140vw] h-[180vh] sm:w-[120vw] sm:h-[160vh] md:w-[100vw] md:h-[140vh]
+        bg-gradient-to-r from-blue-800 via-purple-900 to-transparent 
+        opacity-30 sm:opacity-40 blur-[100px] sm:blur-[130px] 
+        animate-morph-slow pointer-events-none mix-blend-screen"></div>
+
+      <!-- Middle Aura -->
+      <div class="absolute left-[-20%] top-1/2 -translate-y-1/2 
+        w-[120vw] h-[160vh] sm:w-[100vw] sm:h-[140vh] md:w-[90vw] md:h-[120vh]
+        bg-gradient-to-r from-[#5b21b6] via-[#2564EB6B] to-transparent 
+        opacity-40 sm:opacity-50 blur-[80px] sm:blur-[100px] 
+        animate-wobble-aggressive pointer-events-none mix-blend-screen"></div>
+
+      <!-- Core Glow – very subtle on mobile -->
+      <div class="absolute left-[-25vw] top-1/2 -translate-y-1/2 
+        w-[80vw] h-[100vh] sm:w-[70vw] sm:h-[90vh] md:w-[60vw] md:h-[80vh]
+        bg-gradient-to-r from-white via-cyan-100 to-transparent 
+        opacity-60 sm:opacity-70 blur-[60px] sm:blur-[80px] rounded-full 
+        animate-breathe-core pointer-events-none mix-blend-normal"></div>
+
+      <!-- Animated Dashed Lines -->
+      <svg class="absolute inset-0 w-full h-full pointer-events-none mix-blend-overlay">
+        <defs>
+          <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.1"/>
+            <stop offset="30%" stop-color="#8b5cf6" stop-opacity="0.5"/>
+            <stop offset="60%" stop-color="#6366f1" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path id="path-top" fill="none" stroke="url(#lineGradient)" stroke-width="2"
+              stroke-dasharray="9 13" stroke-linecap="round" class="animate-dash opacity-85"
+              style="filter: drop-shadow(0 0 8px #8b5cf6);"/>
+        <path id="path-mid" fill="none" stroke="url(#lineGradient)" stroke-width="2"
+              stroke-dasharray="9 13" stroke-linecap="round" class="animate-dash opacity-85"
+              style="filter: drop-shadow(0 0 8px #8b5cf6);"/>
+        <path id="path-bot" fill="none" stroke="url(#lineGradient)" stroke-width="2"
+              stroke-dasharray="9 13" stroke-linecap="round" class="animate-dash opacity-85"
+              style="filter: drop-shadow(0 0 8px #8b5cf6);"/>
+      </svg>
+    </div>
+
+    <!-- Dark overlay -->
+    <div class="absolute top-0 right-0 bottom-0 w-[50vw] z-10 pointer-events-none">
+      <div class="absolute inset-0 bg-gradient-to-l from-[#000000FF]/90 via-[#000000FF]/70 to-transparent"></div>
+    </div>
+
+    <!-- Grid -->
+    <div class="absolute inset-0 pointer-events-none z-20 opacity-40"
+         style="background-image: radial-gradient(circle, rgba(255, 255, 255, 0.404) 1px, transparent 1px);
+                background-size: 28px 28px;"></div>
+
+    <!-- Bubbles -->
+    <div id="bubbles" class="absolute inset-0 pointer-events-none z-30 overflow-hidden"></div>
+
+    <!-- Main Content – Side-by-side everywhere -->
+    <div class="relative z-40 flex items-center justify-between w-full h-full px-4 sm:px-6 md:px-10 max-w-7xl mx-auto">
+      
+      <!-- Left Text -->
+      <div class="max-w-[45%] sm:max-w-[50%]">
+        <h1 class="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold 
+          text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200 
+          drop-shadow-2xl leading-none">
+          Cut that slop off your site!
+        </h1>
+        <p class="mt-2 sm:mt-4 text-blue-100 text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl 
+          font-light tracking-wider opacity-90">
+          Data flows from the void into the structured reality.
+        </p>
+      </div>
+
+   <div class="image-wrapper">
+  <img 
+    src="asset/antitode.png" 
+    alt="Processes"
+    class="antidote-img"
+  >
+</div>
+
+  <script>
+    const texts = [
+      "Silence isn't empty, it's full of answers.",
+      "Disconnecting to reconnect.",
+      "The path forward is just a processed memory.",
+      "Searching for a spark in the digital void.",
+      "One quiet moment in the endless stream.",
+      "Archiving the future before it happens.",
+      "Found a frequency that feels like home."
+    ];
+
+    const container = document.getElementById('bubbles');
+    const lastSpawn = [0, 0, 0];
+    const MIN_GAP = 3600; // Strong anti-overlap
+
+    function updatePaths() {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const endX = w * 0.86;
+      const centerY = h * 0.5;
+      const elbowX = w * 0.13;
+      const gap = Math.min(w * 0.1, 110);
+      const r = Math.min(w * 0.08, 80);
+
+      const top = `M ${elbowX},${-250} L ${elbowX},${centerY-gap-r} Q ${elbowX},${centerY-gap} ${elbowX+r},${centerY-gap} L ${endX},${centerY-gap}`;
+      const mid = `M ${-250},${centerY} L ${endX},${centerY}`;
+      const bot = `M ${elbowX},${h+250} L ${elbowX},${centerY+gap+r} Q ${elbowX},${centerY+gap} ${elbowX+r},${centerY+gap} L ${endX},${centerY+gap}`;
+
+      document.getElementById('path-top').setAttribute('d', top);
+      document.getElementById('path-mid').setAttribute('d', mid);
+      document.getElementById('path-bot').setAttribute('d', bot);
+    }
+
+    function spawnBubble() {
+      const now = Date.now();
+      const available = lastSpawn.map((t, i) => ({i, t}))
+        .filter(o => now - o.t > MIN_GAP);
+
+      if (!available.length) return;
+
+      const {i: lane} = available[Math.floor(Math.random() * available.length)];
+      lastSpawn[lane] = now;
+
+      const text = texts[Math.floor(Math.random() * texts.length)];
+      const duration = 9 + Math.random() * 2;
+
+      const bubble = document.createElement('div');
+      const width = window.innerWidth;
+      const isSmall = width < 480;
+      const isMedium = width < 768;
+
+      bubble.className = `
+        absolute flex items-center justify-center 
+        px-2 py-1.5 xs:px-2.5 xs:py-2 sm:px-3.5 sm:py-2.5 
+        rounded-xl sm:rounded-2xl 
+        bg-black/45 backdrop-blur-md border border-white/15 
+        text-white shadow-lg 
+        max-w-[100px] xs:max-w-[120px] sm:max-w-[150px] md:max-w-[170px]
+        whitespace-normal text-center leading-tight
+      `;
+
+      bubble.innerHTML = `
+        <span class="${isSmall ? 'text-[10px]' : isMedium ? 'text-xs' : 'text-sm'} 
+          font-light opacity-90 drop-shadow-sm">
+          ${text}
+        </span>
+      `;
+
+      const pathId = ['path-top', 'path-mid', 'path-bot'][lane];
+      const d = document.getElementById(pathId).getAttribute('d');
+
+      bubble.style.cssText = `
+        offset-path: path("${d}");
+        offset-rotate: 0deg;
+        animation: moveAlongPath ${duration}s linear forwards;
+      `;
+
+      container.appendChild(bubble);
+      setTimeout(() => bubble.remove(), duration * 1000 + 1500);
+    }
+
+    // Init
+    updatePaths();
+    window.addEventListener('resize', () => {
+      updatePaths();
+      container.innerHTML = '';
+    });
+
+    setInterval(spawnBubble, 2000);
+    updatePaths();
+  </script>
+</body>
+</html>
