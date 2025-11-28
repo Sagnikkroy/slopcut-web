@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subtle Postgres Card</title>
+  <style>
+    /* 1. SETUP & RESET */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #111; /* Dark background outside */
+      display: grid;
+      place-items: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: white;
+    }
+
+    /* 2. THE CARD CONTAINER */
+    .card {
+      position: relative;
+      width: 600px;
+      height: 320px;
+     background: linear-gradient(to bottom, #212022, #111111); /* Slightly lighter dark */
+      border-right:1px solid #333333;
+      border-top: 3px solid #333333;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.353);
+      transition: 0.3s ease all;
+    }
+    /* 3. LEFT CONTENT (Text) */
+    .content-side {
+      flex: 1;
+      padding: 40px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      color: #ededed;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+    
+    .header svg { width: 20px; height: 20px; fill: white; }
+
+    .desc {
+      font-size: 0.95rem;
+      color: #888;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .desc strong { color: #ccc; font-weight: 500; }
+
+    /* Feature List (Checkmarks) */
+    .features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: #ededed;
+      margin-bottom: 8px;
+    }
+
+    .features li svg {
+      width: 16px; 
+      height: 16px; 
+      fill: none; 
+      stroke: #ededed; 
+      stroke-width: 2;
+    }
+
+    /* 4. RIGHT CONTENT (The SVG Area) */
+    .visual-side {
+      position: relative;
+      width: 280px;
+      height: 100%;
+      
+      overflow: hidden;
+      /* Border to separate left/right slightly if needed, purely stylistic */
+      
+    }
+
+    /* --- THE MASK TECHNIQUE --- 
+       This allows us to color the external SVG file exactly how we want.
+    */
+    .icon-container {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
+    }
+
+    /* Common styles for both layers */
+    .icon-layer {
+      position: absolute;
+      inset: 0;
+      /* This loads the SVG shape as a mask */
+      -webkit-mask-image: url('asset/rest-api-icon.svg'); 
+      mask-image: url('asset/rest-api-icon.svg');
+      
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      
+      -webkit-mask-position: center;
+      mask-position: center;
+    }
+
+    /* LAYER 1: The "Wireframe" Background (Always visible, very faint) */
+    .icon-dim {
+      background-color: #333; /* Dark Grey lines */
+      opacity: 0.4;
+    }
+
+    /* LAYER 2: The "Flashlight" Reveal (Mint Green) */
+    .icon-glow {
+      background-color: #3ECF8E; /* Supabase Green */
+      
+      /* Subtle Shadow for depth, not harsh glow */
+      filter: drop-shadow(0 0 2px rgba(62, 207, 142, 0.5)); 
+      
+      /* Flashlight Mask Logic */
+      /* By default, this layer is HIDDEN (opacity 1, but mask size 0) */
+      mask-image: radial-gradient(circle 80px at var(--mx, -100%) var(--my, -100%), black 0%, transparent 100%);
+      -webkit-mask-image: radial-gradient(circle 80px at var(--mx, -100%) var(--my, -100%), black 0%, transparent 100%);
+      
+      /* We need to combine the SVG mask with the Flashlight mask. 
+         CSS Mask compositing is tricky, so we use a simpler trick:
+         We put the flashlight mask on a PARENT, and the SVG mask on the CHILD.
+      */
+    }
+    
+    /* REVISED STRUCTURE FOR GLOW:
+      To masking to work (SVG Shape + Flashlight Circle), 
+      we wrap the colored layer in a div that handles the flashlight clipping.
+    */
+    .flashlight-wrapper {
+      position: absolute;
+      inset: 0;
+      /* This is the flashlight circle */
+      -webkit-mask-image: radial-gradient(circle 120px at var(--mx, -100%) var(--my, -100%), black 10%, transparent 80%);
+      mask-image: radial-gradient(circle 120px at var(--mx, -100%) var(--my, -100%), black 10%, transparent 80%);
+      
+      /* Only show this wrapper when hovering */
+      opacity: 0; 
+      transition: opacity 0.3s ease;
+    }
+    
+    .card:hover .flashlight-wrapper {
+      opacity: 1;
+    }
+
+    .icon-glow-inner {
+      width: 100%; height: 100%;
+      /* REPLACED solid color with a 3-part radial gradient */
+      background-image: radial-gradient(
+        circle at center,
+        #7e55f755 0%,  
+        #37256670 40%,  
+        rgba(55, 37, 102, 0.2) 100% 
+      );
+      
+      /* The SVG Shape */
+      -webkit-mask-image: url('asset/rest-api-icon.svg');
+      mask-image: url('asset/rest-api-icon.svg');
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      mask-position: center;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="card">
+  
+  <!-- Left: Content -->
+  <div class="content-side">
+    <div>
+      <div class="header">
+       
+        <span>Superfast REST API</span>
+      </div>
+      <div class="desc">
+        A lighting sppeed <strong>REST API</strong>, for developers to integrate Slopcut into their applications instantly
+      </div>
+    </div>
+
+    <ul class="features">
+      <li>
+        <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+        100% portable
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+        Built-in Auth with RLS
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+        Easy to extend
+      </li>
+    </ul>
+  </div>
+
+  <!-- Right: Visual -->
+  <div class="visual-side">
+    <div class="icon-container">
+      
+      <!-- Layer 1: The Dim Wireframe (Always visible) -->
+      <!-- We use 'mask' to turn the external file into a solid Grey shape -->
+      <div class="icon-layer icon-dim"></div>
+
+      <!-- Layer 2: The Flashlight Reveal (Mint Green) -->
+      <!-- Wrapper handles the cursor circle, Inner handles the SVG shape -->
+      <div class="flashlight-wrapper">
+        <div class="icon-glow-inner"></div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const card = document.querySelector('.card');
+  const iconContainer = document.querySelector('.icon-container');
+
+  card.addEventListener('mousemove', e => {
+    // Get cursor position relative to the Icon Container (which has the glow mask)
+    const rect = iconContainer.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Update CSS variables
+    card.style.setProperty('--mx', x + 'px');
+    card.style.setProperty('--my', y + 'px');
+  });
+
+  card.addEventListener('mouseleave', () => {
+    card.style.setProperty('--mx', '-100%');
+    card.style.setProperty('--my', '-100%');
+  });
+</script>
+
+</body>
+</html>
