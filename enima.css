@@ -1,0 +1,156 @@
+
+          body {
+            background-color: #0b0f15;
+            /* "none" is not valid for margin/padding, use 0 */
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .herosec {
+            height: 100vh; /* Or 100vh for full viewport height */
+            background-color: #0b0f15;
+            color: white;
+            display: flex;
+            /* --- ADD THESE TWO LINES --- */
+    position: relative;  /* 1. Anchors the absolute children to this box */
+    overflow: hidden;    /* 2. Cuts off anything that goes outside the edges */
+            /* GRID SETUP FOR 50-50 SPLIT */
+            /* Vertically center content */
+        }
+        .contelement{
+            height: 100%;
+            color: #8b8b8b00;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr; /* This creates two equal columns */
+            align-items: center; 
+                position: relative;  /* 1. Anchors the absolute children to this box */
+                overflow: hidden; 
+        }
+
+        .contentleft {
+            display: flex;
+            flex-direction: column; /* Stack text vertically */
+            justify-content: center;
+            align-items: flex-start; /* Align text to the left */
+            height: 100%;
+            width: 100%;
+            padding: 60px; /* Increased padding for better look */
+            box-sizing: border-box;
+            text-align: left;
+            
+            /* Just for visualization contrast */
+            background-color: #0b0f1500; 
+        }
+
+        .contentright {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+           background: linear-gradient(90deg, #0b0f1500 0%, #0b0f1500 60%, #1e3a8a 100%);
+        }
+
+         /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .herosec {
+               
+                
+                /* This is the key change for mobile: */
+                height: auto; /* Allows height to shrink/grow with content instead of forcing full screen */
+                min-height: 50vh; /* Optional constraint */
+            }
+            
+            .contentleft, .contentright {
+                height: auto; 
+                min-height: 50vh; /* Ensures containers have some substance */
+                display: flex;
+            }
+        }
+
+        /* The Organic Blobs */
+        .blob-cont {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        em{
+            font-style: normal;
+            background-image: linear-gradient(to right, rgb(130, 157, 255), rgb(201, 201, 255));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.8;
+            mix-blend-mode: screen;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+        
+
+        /* Blob Configurations */
+        .blob-4 { top: 30%; left: -2%; width: 20px; height: 20px; background: linear-gradient(180deg, rgba(56, 98, 248, 0.9), rgba(37, 99, 235, 0.9)); animation-delay: -1s; }
+        .blob-5 { top: 30%; left: 4%; width: 40px; height: 40px; background: linear-gradient(180deg, rgba(0, 13, 255, 0.8), rgba(75, 59, 246, 0.8)); animation-delay: -3s; }
+        .blob-6 { top: 30%; left: 3%; width: 180px; height: 180px; background: linear-gradient(180deg, rgba(13, 0, 255, 0.8), rgba(147, 51, 234, 0.8)); animation-delay: -5s; }
+        .blob-7 { top: 25%; left: 15%; width: 450px; height: 350px; background: linear-gradient(180deg, rgba(75, 56, 248, 0.8), rgba(37, 99, 235, 0.8)); animation-delay: -2.5s; }
+        .blob-8 { top: 18%; left: 35%; width: 600px; height: 400px; background: linear-gradient(180deg, rgba(28, 168, 255, 0.817), rgba(59, 130, 246, 0.8)); animation-delay: -4.5s; }
+        .blob-1 { top: 0%; left: 55%; width: 600px; height: 600px; background: linear-gradient(180deg, rgba(56, 59, 248, 0.6), rgba(37, 99, 235, 0.6)); animation-delay: 0s; }
+        .blob-2 { bottom: -10%; right: -10%; width: 700px; height: 700px; background: linear-gradient(180deg, rgba(79, 70, 229, 0.6), rgba(147, 51, 234, 0.5)); animation-delay: -2s; }
+        .blob-3 { top: 35%; right: 10%; width: 500px; height: 500px; background: linear-gradient(180deg, rgba(25, 0, 255, 0.6), rgba(59, 130, 246, 0.5)); animation-delay: -4s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(5px, -5px) scale(1.1); }
+            66% { transform: translate(-5px, 5px) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        /* Glass panel style (Only for the LOGO now) */
+        .glass-panel {
+           
+        }
+        .intro{
+            font-size: 2.0rem;
+            color: #ffffff;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .blob { filter: blur(40px); }
+            .blob-4 { width: 5vw; height: 5vw; top: 30%; left: -5%; }
+            .blob-5 { width: 5vw; height: 5vw; top: 30%; left: 0%; }
+            .blob-6 { width: 5vw; height: 5vw; top: 35%; left: 0%; }
+            .blob-7 { width: 50vw; height: 20vw; top: 35%; left: 20%; opacity: 0.8; }
+            .blob-8 { display: block; width: 50vw; height: 10vw; top: 20%; left: 10%; opacity: 0.8; }
+            .blob-1 { width: 70vw; height: 55vw; top: 5%; left: 55%; }
+            .blob-3 { width: 50vw; height: 50vw; top: 45%; left: 70%; }
+            .blob-2 { width: 60vw; height: 50vw; bottom: 65%; right: -20%; }
+        }
+
+
+         .headingleft{
+            font-size: 3.0rem;
+            font-weight: 400;
+            color: white;
+            line-height: 1.2;
+        }
+        .intro{
+            font-size: 1.5rem;
+        }
+em{
+            font-style: normal;
+            background-image: linear-gradient(to right, rgb(130, 157, 255), rgb(201, 201, 255));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+        }
