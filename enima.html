@@ -8,6 +8,16 @@
     <title>Slopcut</title>
 </head>
 <body>
+    <div class="navbar">
+        <div class="max-w-7xl mx-auto px-6 md:px-20 flex items-center h-full">
+            <img 
+                src="asset/slopcuticon.jpg" 
+                alt="Slopcut Logo" 
+                class="h-10 object-contain"
+            >
+            <p>Slopcut</p>
+        </div>
+    </div>
     <section>
         <div class="herosec">
             <div class="blob-cont" id="blobContainer">
@@ -33,10 +43,8 @@
             >
 
             <div class="hero-video-cont">
-                <video class="hero-video" autoplay loop muted playsinline>
-                    <source src="asset/jeste0001-0425.mp4" type="video/mp4"> 
-                    Your browser does not support the video tag.
-                </video>
+                <canvas id="hero-video" class="hero-video"></canvas>
+
             </div>
         </div>
     </section>
@@ -75,6 +83,44 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+const canvas = document.getElementById('hero-video');
+const ctx = canvas.getContext('2d');
+
+const totalFrames = 99;
+let currentFrame = 1;
+
+const img = new Image();
+
+let lastFrameTime = 0;
+const desiredFPS = 20; 
+const frameDuration = 1000 / desiredFPS;
+
+function loadNextFrame(timestamp) {
+    if (!lastFrameTime) lastFrameTime = timestamp;
+
+    if (timestamp - lastFrameTime >= frameDuration) {
+        const frameNumber = String(currentFrame).padStart(4, '0');
+        img.src = `asset/sequencefilter/${frameNumber}.png`;
+
+        img.onload = () => {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0);
+        };
+
+        currentFrame = currentFrame >= totalFrames ? 1 : currentFrame + 1;
+        lastFrameTime = timestamp;
+    }
+
+    requestAnimationFrame(loadNextFrame);
+}
+
+// IMPORTANT: this must be called with RAF, not directly!
+requestAnimationFrame(loadNextFrame);
+
+
+
 </script>
 </body>
 </html>
