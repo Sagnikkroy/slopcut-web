@@ -44,7 +44,7 @@ body {
     width: clamp(300px, 40vw, 650px);
     height: auto;
     mix-blend-mode: screen; 
-    filter: brightness(0.75);
+    filter: brightness(0.9);
     pointer-events: none;
 }
 
@@ -89,11 +89,11 @@ body {
 }
 
 /* Blob Colors & Positions (Desktop Sizes) */
-.blob-4 { top: 30%; left: -2%; width: 20px; height: 20px; background: linear-gradient(180deg, rgba(56, 98, 248, 0.9), rgba(37, 99, 235, 0.9)); animation-delay: -1s; }
-.blob-5 { top: 30%; left: 4%; width: 40px; height: 40px; background: linear-gradient(180deg, rgba(0, 13, 255, 0.8), rgba(75, 59, 246, 0.8)); animation-delay: -3s; }
+.blob-4 { top: 30%; left: 12%; width: 90px; height: 20px; background: linear-gradient(180deg, rgba(11, 63, 251, 0.9), rgba(37, 99, 235, 0.9)); animation-delay: -1s; }
+.blob-5 { top: 30%; left: 4%; width: 40px; height: 40px; background: linear-gradient(180deg, rgba(0, 13, 255, 0.8), rgba(138, 29, 253, 0.8)); animation-delay: -3s; }
 .blob-6 { top: 30%; left: 3%; width: 180px; height: 180px; background: linear-gradient(180deg, rgba(13, 0, 255, 0.8), rgba(147, 51, 234, 0.8)); animation-delay: -5s; }
 .blob-7 { top: 25%; left: 15%; width: 450px; height: 350px; background: linear-gradient(180deg, rgba(75, 56, 248, 0.8), rgba(37, 99, 235, 0.8)); animation-delay: -2.5s; }
-.blob-8 { top: 18%; left: 35%; width: 600px; height: 400px; background: linear-gradient(180deg, rgba(28, 168, 255, 0.817), rgba(59, 130, 246, 0.8)); animation-delay: -4.5s; }
+.blob-8 { top: 18%; left: 15%; width: 600px; height: 400px; background: linear-gradient(180deg, rgb(47, 0, 255), rgba(59, 130, 246, 0.8)); animation-delay: -4.5s; }
 .blob-1 { top: 0%; left: 55%; width: 600px; height: 600px; background: linear-gradient(180deg, rgba(56, 59, 248, 0.6), rgba(37, 99, 235, 0.6)); animation-delay: 0s; }
 .blob-2 { bottom: -10%; right: -10%; width: 700px; height: 700px; background: linear-gradient(180deg, rgba(79, 70, 229, 0.6), rgba(147, 51, 234, 0.5)); animation-delay: -2s; }
 .blob-3 { top: 35%; right: 10%; width: 500px; height: 500px; background: linear-gradient(180deg, rgba(25, 0, 255, 0.6), rgba(59, 130, 246, 0.5)); animation-delay: -4s; }
@@ -176,16 +176,16 @@ em {
     }
 
     /* Resize the blobs to be much smaller */
-    .blob-1 { top: 0%; left: 55%; width: 200px; height: 200px; } 
-    .blob-2 { bottom: 5%; right:5%; width: 120px; height: 120px; }
+    .blob-1 { top: 0%; left: 60%; width: 200px; height: 200px; } 
+    .blob-2 { bottom: 5%; right:15%; width: 120px; height: 120px; }
     .blob-3 { top: 35%; right: 10%; width: 180px; height: 180px; }
-    .blob-7 { top: 35%; left: 65%; width: 150px; height: 120px; }
-    .blob-8 { top: 38%; left: 35%; width: 200px; height: 80px; }
+    .blob-7 { top: 35%; left: 5%; width: 150px; height: 120px; }
+    .blob-8 { top: 38%; left: 30%; width: 200px; height: 80px; }
 
     /* Shrink the tiny ones proportionally */
     .blob-4 { top: 40%; left: 2%;width: 130px; height: 100px; }
     .blob-5 {  top: 40%; left: 62%;width: 120px; height: 20px; }
-    .blob-6 {  top: 40%; left: 52%;width: 50px; height: 50px; }
+    .blob-6 {  top: 40%; left: 92%;width: 50px; height: 50px; }
 
 
     /* Step 4: Text Adjustments */
