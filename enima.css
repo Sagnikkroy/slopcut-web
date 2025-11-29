@@ -28,16 +28,16 @@ body {
     height: auto;
     aspect-ratio: 1 / 1; 
     object-fit: cover; 
-    border-radius: 25%;
+    border-radius: 10%;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    filter: brightness(0.9); 
+    filter: brightness(1.0); 
 
     /* --- ANIMATION: START STATE (Pop Effect) --- */
     opacity: 0;
     /* Keeps vertical centering while scaling down slightly */
-    transform: translateY(-50%) scale(0.8); 
+    
     /* Animate opacity and transform */
-    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: opacity 0.8s ease-out
 }
 
 /* --- HERO IMAGE (Main abstract image - Left Side - Desktop) --- */
@@ -105,11 +105,11 @@ body {
 
 /* --- ANIMATION TRIGGER STATES (Applied via JS) --- */
 
-/* 1. iOS Icon Activates (First) */
 .herosec.anim-active .hero-ios-icon {
     opacity: 1;
-    transform: translateY(-80%) scale(1);
-    /* 0s Delay - Happens immediately */
+    /* FIX: Resets vertical position to perfect center (relative to top: 50%) */
+    transform: translateY(-50%) scale(1); 
+    transition-delay: 0s;
 }
 
 /* 2. Abstract Art Wipes In (Second) */
