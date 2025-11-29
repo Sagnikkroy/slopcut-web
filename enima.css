@@ -4,15 +4,15 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    overflow-x: hidden; /* Prevents horizontal scrollbars */
+    overflow-x: hidden;
 }
 
-/* --- HERO SECTION CONTAINER (Default: Desktop/Floating) --- */
+/* --- HERO SECTION CONTAINER (Desktop/Floating) --- */
 .herosec {
     height: 100vh;
     background-color: #0b0f15;
     color: white;
-    display: flex; /* Used for vertical centering of absolute elements */
+    display: flex;
     align-items: center; 
     position: relative;  
     overflow: hidden;    
@@ -56,11 +56,11 @@ body {
     top: 50%;
     transform: translateY(-50%);
     right: 5%; 
-    width: clamp(250px, 30vw, 550px);
-    height: clamp(150px, 20vw, 350px);
+    width: clamp(350px, 50vw, 550px);
+    height: clamp(150px, 60vw, 550px);
     border-radius: 1.5rem; 
     overflow: hidden; 
-    
+ 
 }
 
 .hero-video {
@@ -70,7 +70,7 @@ body {
     display: block;
 }
 
-/* --- BACKGROUND BLOBS (Unchanged) --- */
+/* --- BACKGROUND BLOBS (Desktop Defaults) --- */
 .blob-cont {
     position: absolute;
     top: 0; left: 0;
@@ -82,13 +82,13 @@ body {
 .blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(120px);
+    filter: blur(120px); /* High blur on desktop */
     opacity: 0.8;
     mix-blend-mode: screen;
     animation: float 10s infinite ease-in-out alternate;
 }
 
-/* Blob Colors & Positions (Unchanged) */
+/* Blob Colors & Positions (Desktop Sizes) */
 .blob-4 { top: 30%; left: -2%; width: 20px; height: 20px; background: linear-gradient(180deg, rgba(56, 98, 248, 0.9), rgba(37, 99, 235, 0.9)); animation-delay: -1s; }
 .blob-5 { top: 30%; left: 4%; width: 40px; height: 40px; background: linear-gradient(180deg, rgba(0, 13, 255, 0.8), rgba(75, 59, 246, 0.8)); animation-delay: -3s; }
 .blob-6 { top: 30%; left: 3%; width: 180px; height: 180px; background: linear-gradient(180deg, rgba(13, 0, 255, 0.8), rgba(147, 51, 234, 0.8)); animation-delay: -5s; }
@@ -126,63 +126,73 @@ em {
     color: transparent;
 }
 
-/* --- MOBILE RESPONSIVENESS FIX (Horizontal Flexbox) --- */
+/* --- MOBILE RESPONSIVENESS FIX (Horizontal Flexbox & SHRUNKEN BLOBS) --- */
 @media (max-width: 768px) {
     /* Step 1: Force Hero to be a Flex container for its main elements */
     .herosec {
-        /* Keep `display: flex;` from desktop */
-        flex-direction: row; /* FIX: Stack elements SIDE-BY-SIDE */
-        flex-wrap: nowrap; /* Prevent wrapping to a new line */
-        justify-content: space-evenly; /* Distribute space evenly between items */
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-evenly;
         align-items: center; 
-        height: 50vh; /* Shorter height since we are stacking horizontally */
+        height: 50vh; 
         min-height: 300px; 
-        padding: 0 10px; /* Small horizontal padding */
+        padding: 0 10px;
     }
     
-    /* Step 2: Reset Absolute Positioning and apply Flexbox principles */
+    /* Step 2: Reset Absolute Positioning for images/video and apply Flexbox principles */
     .hero-ios-icon,
     .hero-overlay-img,
     .hero-video-cont {
-        position: static; /* Crucial: removes 'absolute' positioning */
+        position: static;
         top: auto;
         left: auto;
         right: auto;
         transform: none;
-        margin: 0 2px; /* Small horizontal margin between items */
-        flex-shrink: 0; /* Important: Prevents items from shrinking too much */
+        margin: 0 0px;
+        flex-shrink: 0;
     }
 
-    /* Step 3: Define sizes to share the space (Total width should be less than 100%) */
-
-    /* iOS Icon (Smallest share) */
+    /* Step 3: Size the items for horizontal stack (Unchanged) */
     .hero-ios-icon {
-        width: 15vw; /* Takes 20% of viewport width */
-        height: 15vw;
+        width: 20vw;
+        height: 20vw;
     }
 
-    /* Main Image (Largest share) */
     .hero-overlay-img {
-        width: 40vw; /* Takes 35% of viewport width */
+        width: 35vw;
         height: auto;
     }
 
-    /* Video Container (Medium share) */
     .hero-video-cont {
-        width: 40vw; /* Takes 35% of viewport width */
-        height: 50vw; /* Maintain aspect ratio */
-        border-radius: 0.5rem; /* Smaller radius for mobile */
+        width: 45vw;
+        height: 80%;
+        border-radius: 0.5rem;
     }
 
-    /* Step 4: Text and Blob Adjustments */
+    /* --- SHRUNKEN BLOBS FIX --- */
+    /* Reduce Blur significantly */
+    .blob { 
+        filter: blur(40px); /* Reduced from 120px to 40px */
+    }
+
+    /* Resize the blobs to be much smaller */
+    .blob-1 { top: 0%; left: 55%; width: 100px; height: 100px; } 
+    .blob-2 { bottom: 5%; right:5%; width: 120px; height: 120px; }
+    .blob-3 { top: 35%; right: 10%; width: 180px; height: 180px; }
+    .blob-7 { top: 35%; left: 65%; width: 150px; height: 120px; }
+    .blob-8 { top: 45%; left: 35%; width: 100px; height: 60px; }
+
+    /* Shrink the tiny ones proportionally */
+    .blob-4 { top: 40%; left: 2%;width: 130px; height: 100px; }
+    .blob-5 {  top: 40%; left: 62%;width: 120px; height: 20px; }
+    .blob-6 {  top: 40%; left: 52%;width: 50px; height: 50px; }
+
+
+    /* Step 4: Text Adjustments */
     .headingleft {
         font-size: 2.0rem;
     }
     .intro {
         font-size: 1.2rem;
     }
-
-    .blob { filter: blur(60px); }
-    .blob-1 { width: 80vw; height: 80vw; } 
-    .blob-2 { width: 60vw; height: 60vw; }
 }
