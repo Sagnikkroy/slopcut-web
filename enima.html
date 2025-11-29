@@ -65,5 +65,16 @@
             </div>
         </div>
     </section>
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+    // Wait for full window load (images, etc)
+    window.addEventListener('load', () => {
+        const heroSection = document.querySelector('.herosec');
+        if (heroSection) {
+            heroSection.classList.add('anim-active');
+        }
+    });
+});
+</script>
 </body>
 </html>

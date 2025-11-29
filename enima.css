@@ -7,9 +7,9 @@ body {
     overflow-x: hidden;
 }
 
-/* --- HERO SECTION CONTAINER (Desktop/Floating) --- */
+/* --- HERO SECTION CONTAINER --- */
 .herosec {
-    height: 120vh;
+    height: 110vh;
     background-color: #0b0f15;
     color: white;
     display: flex;
@@ -23,7 +23,6 @@ body {
     position: absolute;
     z-index: 11;
     top: 50%;
-    transform: translateY(-50%); 
     left: 2%; 
     width: clamp(80px, 10vw, 150px);
     height: auto;
@@ -32,6 +31,13 @@ body {
     border-radius: 25%;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     filter: brightness(0.9); 
+
+    /* --- ANIMATION: START STATE (Pop Effect) --- */
+    opacity: 0;
+    /* Keeps vertical centering while scaling down slightly */
+    transform: translateY(-50%) scale(0.8); 
+    /* Animate opacity and transform */
+    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* --- HERO IMAGE (Main abstract image - Left Side - Desktop) --- */
@@ -39,13 +45,20 @@ body {
     position: absolute;
     z-index: 10;
     top: 50%;
-    transform: translateY(-50%); 
     left: 10%; 
+    transform: translateY(-50%); 
     width: clamp(300px, 40vw, 650px);
     height: auto;
     mix-blend-mode: screen; 
     filter: brightness(0.9);
     pointer-events: none;
+
+    /* --- ANIMATION: START STATE (Wipe Effect) --- */
+    opacity: 0;
+    /* Clip-path creates the wipe. inset(0 100% 0 0) hides the image from right to left */
+    clip-path: inset(0 100% 0 0); 
+    /* Transition set here, but delay will be applied in the active state */
+    transition: opacity 1s ease-out, clip-path 1.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 /* --- HERO VIDEO CONTAINER (Right Side - Desktop) --- */
@@ -60,7 +73,6 @@ body {
     height: clamp(150px, 60vw, 550px);
     border-radius: 1.5rem; 
     overflow: hidden; 
- 
 }
 
 .hero-video {
@@ -82,13 +94,39 @@ body {
 .blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(120px); /* High blur on desktop */
-    opacity: 0.8;
+    filter: blur(120px);
     mix-blend-mode: screen;
     animation: float 10s infinite ease-in-out alternate;
+
+    /* --- ANIMATION: START STATE (Fade) --- */
+    opacity: 0; /* Initially hidden */
+    transition: opacity 2s ease-in-out;
 }
 
-/* Blob Colors & Positions (Desktop Sizes) */
+/* --- ANIMATION TRIGGER STATES (Applied via JS) --- */
+
+/* 1. iOS Icon Activates (First) */
+.herosec.anim-active .hero-ios-icon {
+    opacity: 1;
+    transform: translateY(-80%) scale(1);
+    /* 0s Delay - Happens immediately */
+}
+
+/* 2. Abstract Art Wipes In (Second) */
+.herosec.anim-active .hero-overlay-img {
+    opacity: 1;
+    clip-path: inset(0 0 0 0); /* Unclips the image (Wipe Reveal) */
+    transition-delay: 0.4s; /* Waits 0.4s for the icon to pop first */
+}
+
+/* 3. Blobs Fade In (Synced with Wipe) */
+.herosec.anim-active .blob {
+    opacity: 0.8; /* Target opacity */
+    transition-delay: 0.6s; /* Starts fading slightly after the wipe starts */
+}
+
+
+/* --- BLOB POSITIONS --- */
 .blob-4 { top: 30%; left: 12%; width: 90px; height: 20px; background: linear-gradient(180deg, rgba(11, 63, 251, 0.9), rgba(37, 99, 235, 0.9)); animation-delay: -1s; }
 .blob-5 { top: 30%; left: 4%; width: 40px; height: 40px; background: linear-gradient(180deg, rgba(0, 13, 255, 0.8), rgba(138, 29, 253, 0.8)); animation-delay: -3s; }
 .blob-6 { top: 30%; left: 3%; width: 180px; height: 180px; background: linear-gradient(180deg, rgba(13, 0, 255, 0.8), rgba(147, 51, 234, 0.8)); animation-delay: -5s; }
@@ -105,7 +143,7 @@ body {
     100% { transform: translate(0, 0) scale(1); }
 }
 
-/* --- TYPOGRAPHY (Unchanged) --- */
+/* --- TYPOGRAPHY --- */
 .headingleft {
     font-size: 3.0rem;
     font-weight: 400;
@@ -126,9 +164,8 @@ em {
     color: transparent;
 }
 
-/* --- MOBILE RESPONSIVENESS FIX (Horizontal Flexbox & SHRUNKEN BLOBS) --- */
+/* --- MOBILE RESPONSIVENESS FIX --- */
 @media (max-width: 768px) {
-    /* Step 1: Force Hero to be a Flex container for its main elements */
     .herosec {
         flex-direction: row;
         flex-wrap: nowrap;
@@ -139,7 +176,6 @@ em {
         padding: 0 10px;
     }
     
-    /* Step 2: Reset Absolute Positioning for images/video and apply Flexbox principles */
     .hero-ios-icon,
     .hero-overlay-img,
     .hero-video-cont {
@@ -147,12 +183,20 @@ em {
         top: auto;
         left: auto;
         right: auto;
+        /* Note: We remove the 'transform' here for layout, 
+           but the animation classes usually override this. 
+           Mobile animations might need tweaking if they look odd, 
+           but the opacity fade will still work perfectly. */
         transform: none;
         margin: 0 0px;
         flex-shrink: 0;
     }
 
-    /* Step 3: Size the items for horizontal stack (Unchanged) */
+    /* Mobile Animation Override: Ensure scale returns to 1 without moving Y */
+    .herosec.anim-active .hero-ios-icon {
+         transform: scale(1); /* No translateY on mobile */
+    }
+
     .hero-ios-icon {
         width: 20vw;
         height: 20vw;
@@ -170,29 +214,19 @@ em {
     }
 
     /* --- SHRUNKEN BLOBS FIX --- */
-    /* Reduce Blur significantly */
     .blob { 
-        filter: blur(40px); /* Reduced from 120px to 40px */
+        filter: blur(40px); 
     }
 
-    /* Resize the blobs to be much smaller */
     .blob-1 { top: 0%; left: 60%; width: 200px; height: 200px; } 
     .blob-2 { bottom: 5%; right:15%; width: 120px; height: 120px; }
     .blob-3 { top: 35%; right: 10%; width: 180px; height: 180px; }
     .blob-7 { top: 35%; left: 5%; width: 150px; height: 120px; }
     .blob-8 { top: 38%; left: 30%; width: 200px; height: 80px; }
-
-    /* Shrink the tiny ones proportionally */
     .blob-4 { top: 40%; left: 2%;width: 130px; height: 100px; }
     .blob-5 {  top: 40%; left: 62%;width: 120px; height: 20px; }
     .blob-6 {  top: 40%; left: 92%;width: 50px; height: 50px; }
 
-
-    /* Step 4: Text Adjustments */
-    .headingleft {
-        font-size: 2.0rem;
-    }
-    .intro {
-        font-size: 1.2rem;
-    }
+    .headingleft { font-size: 2.0rem; }
+    .intro { font-size: 1.2rem; }
 }
