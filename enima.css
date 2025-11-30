@@ -83,7 +83,7 @@ body {
     max-width: 45%; 
     height: auto;
     mix-blend-mode: screen; 
-    filter: brightness(0.9);
+    filter: brightness(1.0);
     pointer-events: none;
 
     /* --- ANIMATION: START STATE (Wipe Effect) --- */
@@ -98,7 +98,7 @@ body {
     top: auto;
     right: auto;
     mix-blend-mode: screen; 
-    filter: brightness(1.5);
+    filter: brightness(0.1);
     filter: contrast(1.6);
     transform: none; 
     
@@ -110,7 +110,7 @@ body {
     flex-shrink: 0; 
     margin-left: 20px; 
 
-    border-radius: 1.5rem; 
+ 
     overflow: hidden; 
 }
 
@@ -272,16 +272,16 @@ em {
 
     /* --- SHRUNKEN BLOBS FIX (Mobile) --- */
     .blob { 
-        filter: blur(40px); 
+        filter: blur(80px); 
     }
 
     /* Blob positions are relative to the new, taller .herosec, allowing them to blend smoothly into the bottom */
-    .blob-1 { top: 10%; left: 60%; width: 200px; height: 200px; } 
-    .blob-2 { top: 15%; right:15%; width: 120px; height: 120px; }
-    .blob-3 { top: 20%; right: 0%; width: 180px; height: 180px; }
-    .blob-7 { top: 20%; left: 5%; width: 150px; height: 120px; }
-    .blob-8 { top: 23%; left: 30%; width: 200px; height: 80px; }
-    .blob-4 { top: 20%; left: -15%;width: 100px; height: 100px; }
+    .blob-1 { top: 15%; left: 60%; width: 200px; height: 200px; } 
+    .blob-2 { top: 25%; right:15%; width: 120px; height: 120px; }
+    .blob-3 { top: 30%; right: 0%; width: 180px; height: 180px; }
+    .blob-7 { top: 30%; left: 5%; width: 150px; height: 120px; }
+    .blob-8 { top: 30%; left: 30%; width: 200px; height: 80px; }
+    .blob-4 { top: 30%; left: -15%;width: 100px; height: 100px; }
     .blob-5 { top: 20%; left: 62%;width: 120px; height: 20px; }
     .blob-6 { top: 20%; left: 92%;width: 50px; height: 50px; }
 
