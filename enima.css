@@ -19,7 +19,7 @@ body {
 
 /* --- HERO SECTION CONTAINER (UPDATED FOR FLEX LAYOUT) --- */
 .herosec {
-    height: 100vh;
+    height: 150vh;
     background-color: #0b0f15;
     color: white;
     display: flex;
@@ -66,7 +66,7 @@ body {
     filter: brightness(1.0); 
     flex-shrink: 0; 
     
-    /* --- ANIMATION: START STATE (Pop Effect) --- */
+    /* --- ANIMATION: START STATE (Pop Effect) */
     opacity: 0;
     transition: opacity 0.8s ease-out;
 }
@@ -86,7 +86,7 @@ body {
     filter: brightness(1.0);
     pointer-events: none;
 
-    /* --- ANIMATION: START STATE (Wipe Effect) --- */
+    /* --- ANIMATION: START STATE (Wipe Effect) */
     opacity: 0;
     clip-path: inset(0 100% 0 0); 
     transition: opacity 1s ease-out, clip-path 1.2s cubic-bezier(0.25, 1, 0.5, 1);
@@ -98,8 +98,8 @@ body {
     top: auto;
     right: auto;
     mix-blend-mode: screen; 
-    filter: brightness(0.1);
-    filter: contrast(1.6);
+    filter: brightness(10.0);
+    filter: contrast(1.5);
     transform: none; 
     
     z-index: 10;
@@ -149,7 +149,7 @@ body {
     transition: opacity 2s ease-in-out;
 }
 
-/* --- ANIMATION TRIGGER STATES (Applied via JS) --- */
+/* --- ANIMATION TRIGGER STATES (Applied via JS) */
 .herosec.anim-active .hero-ios-icon {
     opacity: 1;
     transition-delay: 0s;
@@ -174,15 +174,16 @@ body {
 
 
 /* --- BLOB POSITIONS (Desktop) --- */
-.blob-4 { top: 30%; left: 12%; width: 90px; height: 20px; background: linear-gradient(180deg, rgba(11, 63, 251, 0.9), rgba(37, 99, 235, 0.9)); animation-delay: -1s; }
-.blob-5 { top: 30%; left: 4%; width: 40px; height: 40px; background: linear-gradient(180deg, rgba(0, 13, 255, 0.8), rgba(138, 29, 253, 0.8)); animation-delay: -3s; }
-.blob-6 { top: 30%; left: 3%; width: 180px; height: 180px; background: linear-gradient(180deg, rgba(13, 0, 255, 0.8), rgba(147, 51, 234, 0.8)); animation-delay: -5s; }
-.blob-7 { top: 25%; left: 15%; width: 450px; height: 350px; background: linear-gradient(180deg, rgba(75, 56, 248, 0.8), rgba(37, 99, 235, 0.8)); animation-delay: -2.5s; }
-.blob-8 { top: 18%; left: 15%; width: 600px; height: 400px; background: linear-gradient(180deg, rgb(47, 0, 255), rgba(59, 130, 246, 0.8)); animation-delay: -4.5s; }
-.blob-1 { top: 0%; left: 55%; width: 600px; height: 600px; background: linear-gradient(180deg, rgba(56, 59, 248, 0.6), rgba(37, 99, 235, 0.6)); animation-delay: 0s; }
-.blob-2 { bottom: -10%; right: 5%; width: 700px; height: 700px; background: linear-gradient(180deg, rgba(79, 70, 229, 0.6), rgba(147, 51, 234, 0.5)); animation-delay: -2s; }
-.blob-3 { top: 35%; right: 20%; width: 500px; height: 500px; background: linear-gradient(180deg, rgba(25, 0, 255, 0.6), rgba(59, 130, 246, 0.5)); animation-delay: -4s; }
-
+.blob-4 { top: 35%; left: 0%; width: 250px; height: 250px; background: linear-gradient(180deg, rgba(11, 63, 251, 0.9), rgba(37, 99, 235, 0.9)); animation-delay: -1s; }
+.blob-5 { top: 35%; left: 0%; width: 250px; height: 250px; background: linear-gradient(180deg, rgba(0, 13, 255, 0.8), rgba(138, 29, 253, 0.8)); animation-delay: -3s; }
+.blob-6 { top: 40%; left: 25%; width: 200px; height: 200px; background: linear-gradient(180deg, rgba(13, 0, 255, 0.8), rgba(147, 51, 234, 0.8)); animation-delay: -5s; }
+.blob-7 { top: 40%; left: 35%; width: 200px; height: 200px; background: linear-gradient(180deg, rgba(75, 56, 248, 0.8), rgba(37, 99, 235, 0.8)); animation-delay: -2.5s; }
+.blob-7p1 { top: 40%; left: 20%; width: 500px; height: 100px; background: linear-gradient(180deg, rgba(75, 56, 248, 0.8), rgba(37, 99, 235, 0.8)); animation-delay: -2.5s; }
+.blob-8 { top: 35%; left: 45%; width: 100px; height: 100px; background: linear-gradient(180deg, rgb(47, 0, 255), rgba(59, 130, 246, 0.8)); animation-delay: -4.5s; }
+.blob-1 { top: 15%; left: 50%; width: 350px; height: 400px; background: linear-gradient(180deg, rgba(56, 59, 248, 0.6), rgba(37, 99, 235, 0.6)); animation-delay: 0s; }
+.blob-2 { bottom: 20%; right: 15%; width: 350px; height: 350px; background: linear-gradient(180deg, rgba(79, 70, 229, 0.6), rgba(147, 51, 234, 0.5)); animation-delay: -2s; }
+.blob-3 { top: 50%; right: 0%; width: 250px; height: 250px; background: linear-gradient(180deg, rgba(25, 0, 255, 0.6), rgba(59, 130, 246, 0.5)); animation-delay: -4s; }
+.blob-3p1 { top: 15%; right: 5%; width: 300px; height: 300px; background: linear-gradient(180deg, rgba(25, 0, 255, 0.6), rgba(59, 130, 246, 0.5)); animation-delay: -4s; }
 @keyframes float {
     0% { transform: translate(0, 0) scale(1); }
     33% { transform: translate(5px, -5px) scale(1.1); }
@@ -264,19 +265,20 @@ em {
     }
 
     .hero-video-cont {
-        width: 45vw;
-        height: 80%;
+        width: 51vw;
+        height: 100%;
         max-height: none; 
         border-radius: 0.5rem;
+        overflow: hidden;
     }
 
     /* --- SHRUNKEN BLOBS FIX (Mobile) --- */
     .blob { 
-        filter: blur(80px); 
+        filter: blur(70px); 
     }
 
     /* Blob positions are relative to the new, taller .herosec, allowing them to blend smoothly into the bottom */
-    .blob-1 { top: 15%; left: 60%; width: 200px; height: 200px; } 
+    .blob-1 { top: 25%; left: 60%; width: 200px; height: 200px; } 
     .blob-2 { top: 25%; right:15%; width: 120px; height: 120px; }
     .blob-3 { top: 30%; right: 0%; width: 180px; height: 180px; }
     .blob-7 { top: 30%; left: 5%; width: 150px; height: 120px; }
@@ -287,4 +289,59 @@ em {
 
     .headingleft { font-size: 2.0rem; }
     .intro { font-size: 1.2rem; }
+
+    /* === NEW STYLES FOR SECTION 2 IMAGE ON MOBILE === */
+    section.relative.w-full.py-24.overflow-hidden {
+        position: relative !important; 
+        padding-top: 4rem; 
+        padding-bottom: 4rem; 
+    }
+
+    /* The main content container needs to switch to column */
+    .max-w-7xl.mx-auto.px-6.md\:px-20.flex.flex-col.md\:flex-row.items-center.gap-12 {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    /* The text column (w-full md:w-1/2) */
+    .w-full.md\:w-1\/2.flex.flex-col.items-start.space-y-6.z-10 {
+        width: 100%;
+        position: relative; 
+        z-index: 15; 
+        /* CRITICAL: REMOVE THE BACKGROUND OVERLAY */
+        background-color: transparent; 
+        padding-top: 20px; 
+        padding-bottom: 30px; 
+    }
+    
+    .w-full.md\:w-1\/2.flex.flex-col.items-start.space-y-6.z-10 > * {
+        align-self: flex-start !important; 
+    }
+
+    /* The image container (w-full md:w-[65%] md:-mr-48 relative) */
+    .w-full.md\:w-\[65\%\].md\:-mr-48.relative {
+        position: absolute;
+        top: 0; 
+        right: -30%; 
+        width: 90%; 
+        height: 100%; 
+        z-index: 5; 
+        pointer-events: none; 
+    }
+
+    /* The image itself needs adjustments */
+    .w-full.md\:w-\[65\%\].md\:-mr-48.relative img {
+        height: 100%; 
+        width: auto; 
+        object-fit: contain; 
+        opacity: 0.8; 
+        filter: none; 
+        border-radius: 0; 
+        margin-left: auto; 
+    }
+
+    /* Remove the gradient overlay on the image for mobile */
+    .w-full.md\:w-\[65\%\].md\:-mr-48.relative .absolute.inset-0.bg-gradient-to-r {
+        display: none;
+    }
 }
