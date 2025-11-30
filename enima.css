@@ -23,22 +23,39 @@ body {
     background-color: #0b0f15;
     color: white;
     display: flex;
-    /* Use flexbox for horizontal arrangement and centering */
+    /* Default to row for desktop */
+    flex-direction: row; 
     justify-content: space-around; 
     align-items: center; 
     position: relative; 
     overflow: hidden; 
-    /* Add padding for small desktop/tablet devices to prevent content from touching edges */
     padding: 0 5%;
+}
+
+/* NEW: Container for the existing hero content (desktop-first) */
+.hero-content-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    flex-grow: 0; 
+    position: relative;
+}
+
+/* NEW: Mobile CTA Div - Hidden by default on desktop */
+.mobile-hero-cta {
+    display: none; /* Hide on desktop */
+    width: 100%;
+    padding-bottom: 40px; 
+    z-index: 15; 
 }
 
 /* --- HERO iOS ICON IMAGE (Left Side - Desktop) --- */
 .hero-ios-icon {
-    /* CHANGED: Position from absolute to relative to flow within flex container */
     position: relative; 
     left: auto;
     top: auto;
-    
     z-index: 11;
     width: clamp(80px, 10vw, 150px);
     height: auto;
@@ -47,7 +64,7 @@ body {
     border-radius: 10%;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     filter: brightness(1.0); 
-    flex-shrink: 0; /* Prevents shrinking */
+    flex-shrink: 0; 
     
     /* --- ANIMATION: START STATE (Pop Effect) --- */
     opacity: 0;
@@ -56,15 +73,14 @@ body {
 
 /* --- HERO IMAGE (Main abstract image - Left Side - Desktop) --- */
 .hero-overlay-img {
-    /* CHANGED: Position from absolute to relative to flow within flex container */
     position: relative;
     left: auto;
     top: auto;
-    transform: none; /* Reset transform */
+    transform: none; 
 
     z-index: 10;
     width: clamp(300px, 40vw, 650px);
-    max-width: 45%; /* Limits size relative to container */
+    max-width: 45%; 
     height: auto;
     mix-blend-mode: screen; 
     filter: brightness(0.9);
@@ -78,23 +94,21 @@ body {
 
 /* --- HERO VIDEO CONTAINER (Right Side - Desktop) --- */
 .hero-video-cont {
-    /* CHANGED: Position from absolute to relative to ensure visibility */
     position: relative; 
     top: auto;
     right: auto;
-     mix-blend-mode: screen; 
+    mix-blend-mode: screen; 
     filter: brightness(1.5);
     filter: contrast(1.6);
-    transform: none; /* Reset transform */
+    transform: none; 
     
     z-index: 10;
     display: block; 
-    /* NEW SIZE DEFINITION: Slightly adjusted max width to be more conservative */
-    width: clamp(350px, 40vw, 600px); 
-    height: 70vh; /* Scales with viewport height */
-    max-height: 800px; /* Max cap */
-    flex-shrink: 0; /* Prevents shrinking too much */
-    margin-left: 20px; /* Space from left content */
+    width: clamp(350px, 40vw, 800px); 
+    height: 80vh; 
+    max-height: 800px; 
+    flex-shrink: 0; 
+    margin-left: 20px; 
 
     border-radius: 1.5rem; 
     overflow: hidden; 
@@ -104,9 +118,6 @@ body {
     width: 100%;
     height: 100%;
     display: block;
-    
-    /* *** CRITICAL FIX: Changed from 'cover' to 'contain' *** */
-    /* 'contain' ensures the whole video is visible, without cropping. */
     object-fit: contain; 
     
     /* === START STATE: Fade-in-from-blur === */
@@ -139,35 +150,30 @@ body {
 }
 
 /* --- ANIMATION TRIGGER STATES (Applied via JS) --- */
-
-/* 1. iOS Icon Pop-in (First) */
 .herosec.anim-active .hero-ios-icon {
     opacity: 1;
     transition-delay: 0s;
 }
 
-/* 2. Abstract Art Wipes In (Second) */
 .herosec.anim-active .hero-overlay-img {
     opacity: 1;
     clip-path: inset(0 0 0 0); 
     transition-delay: 0.4s; 
 }
 
-/* 3. Blobs Fade In (Synced with Wipe) */
 .herosec.anim-active .blob {
     opacity: 0.8; 
     transition-delay: 0.6s; 
 }
 
-/* 4. Video Fade In from Blur (Last) */
 .herosec.anim-active .hero-video {
     opacity: 1;
     filter: blur(0); 
-    transition-delay: 0.95s; /* Starts right as the abstract image wipe finishes */
+    transition-delay: 0.95s; 
 }
 
 
-/* --- BLOB POSITIONS (No change) --- */
+/* --- BLOB POSITIONS (Desktop) --- */
 .blob-4 { top: 30%; left: 12%; width: 90px; height: 20px; background: linear-gradient(180deg, rgba(11, 63, 251, 0.9), rgba(37, 99, 235, 0.9)); animation-delay: -1s; }
 .blob-5 { top: 30%; left: 4%; width: 40px; height: 40px; background: linear-gradient(180deg, rgba(0, 13, 255, 0.8), rgba(138, 29, 253, 0.8)); animation-delay: -3s; }
 .blob-6 { top: 30%; left: 3%; width: 180px; height: 180px; background: linear-gradient(180deg, rgba(13, 0, 255, 0.8), rgba(147, 51, 234, 0.8)); animation-delay: -5s; }
@@ -205,16 +211,33 @@ em {
     color: transparent;
 }
 
-/* --- MOBILE RESPONSIVENESS FIX (Minor adjustments for new flex layout) --- */
+/* --- MOBILE RESPONSIVENESS FIX (768px and below) --- */
 @media (max-width: 768px) {
     .herosec {
+        /* CRITICAL: Allows height to expand based on content */
+        height: auto; 
+        /* CRITICAL: Extend height to prevent abrupt cut-off and fit new content */
+        min-height: 60vh; 
+        flex-direction: column; /* Stack vertically on mobile */
+        justify-content: flex-start; /* Push content towards the top */
+        align-items: center; 
+        padding: 0 10px;
+    }
+
+    /* Show the new CTA content */
+    .mobile-hero-cta {
+        display: block; 
+    }
+
+    /* Adjust the container for existing hero content to stack at the top */
+    .hero-content-container {
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: space-evenly;
         align-items: center; 
-        height: 10vh; 
         min-height: 260px; 
-        padding: 0 10px;
+        height: auto;
+        padding-top: 80px; /* Space from navbar */
     }
     
     .hero-ios-icon,
@@ -229,11 +252,6 @@ em {
         flex-shrink: 0;
     }
 
-    /* Mobile Animation Override: Ensure scale returns to 1 without moving Y */
-    .herosec.anim-active .hero-ios-icon {
-        /* No transform needed since it is not absolutely positioned */
-    }
-
     .hero-ios-icon {
         width: 10vw;
         height: 10vw;
@@ -242,29 +260,30 @@ em {
     .hero-overlay-img {
         width: 35vw;
         height: auto;
-        max-width: none; /* Allows flexibility on mobile */
+        max-width: none; 
     }
 
     .hero-video-cont {
         width: 45vw;
         height: 80%;
-        max-height: none; /* Allows flexibility on mobile */
+        max-height: none; 
         border-radius: 0.5rem;
     }
 
-    /* --- SHRUNKEN BLOBS FIX (No change) --- */
+    /* --- SHRUNKEN BLOBS FIX (Mobile) --- */
     .blob { 
         filter: blur(40px); 
     }
 
-    .blob-1 { top: 0%; left: 60%; width: 200px; height: 200px; } 
-    .blob-2 { bottom: 5%; right:15%; width: 120px; height: 120px; }
-    .blob-3 { top: 30%; right: 0%; width: 180px; height: 180px; }
-    .blob-7 { top: 35%; left: 5%; width: 150px; height: 120px; }
-    .blob-8 { top: 37%; left: 30%; width: 200px; height: 80px; }
-    .blob-4 { top: 35%; left: -15%;width: 100px; height: 100px; }
-    .blob-5 { top: 40%; left: 62%;width: 120px; height: 20px; }
-    .blob-6 { top: 40%; left: 92%;width: 50px; height: 50px; }
+    /* Blob positions are relative to the new, taller .herosec, allowing them to blend smoothly into the bottom */
+    .blob-1 { top: 10%; left: 60%; width: 200px; height: 200px; } 
+    .blob-2 { top: 15%; right:15%; width: 120px; height: 120px; }
+    .blob-3 { top: 20%; right: 0%; width: 180px; height: 180px; }
+    .blob-7 { top: 20%; left: 5%; width: 150px; height: 120px; }
+    .blob-8 { top: 23%; left: 30%; width: 200px; height: 80px; }
+    .blob-4 { top: 20%; left: -15%;width: 100px; height: 100px; }
+    .blob-5 { top: 20%; left: 62%;width: 120px; height: 20px; }
+    .blob-6 { top: 20%; left: 92%;width: 50px; height: 50px; }
 
     .headingleft { font-size: 2.0rem; }
     .intro { font-size: 1.2rem; }
