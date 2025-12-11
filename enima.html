@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="enima.css"> 
+    <link rel="stylesheet" href="enima2.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Slopcut</title>
 </head>
@@ -51,9 +52,19 @@
                 >
 
                 <div class="hero-video-cont">
-                    <canvas id="hero-video" class="hero-video"></canvas>
+                    <video
+                        id="hero-video"
+                        class="hero-video"
+                        src="asset/herovid0001-0098.mkv" 
+                        autoplay 
+                        loop 
+                        muted 
+                        playsinline
+                    >
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
-            </div>
+                </div>
             
             <div class="mobile-hero-cta max-w-7xl mx-auto px-6 md:px-20">
                 <p class="text-4xl md:text-5xl text-center text-white mb-6 mt-5">
@@ -69,10 +80,46 @@
                     </button>
                     
                 </div>
-               <p class=" text-sm md:text-sm text-center text-white mb-6 mt-5"> Built for <u>Startups</u> & <u>Enterprises</u></p>
+               <p class=" text-sm md:text-sm text-center text-white mb-6 mt-6"> Built for <u>Startups</u> & <u>Enterprises</u></p>
             </div>
 
         </div>
+    </section>
+    <section class="tools">
+
+        <div class="max-w-7xl mx-auto px-6 md:px-20 flex flex-col md:flex-row items-center justify-center gap-12 py-12">
+            <div class="toolcard">
+            <img 
+                src="asset/logos/openai.svg" 
+                alt="OpenAI Logo" 
+                class="h-8 object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <div class="toolcard">
+            <img 
+                src="asset/logos/openai.svg" 
+                alt="OpenAI Logo" 
+                class="h-8 object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <div class="toolcard">
+            <img 
+                src="asset/logos/openai.svg" 
+                alt="OpenAI Logo" 
+                class="h-8 object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <div class="toolcard">
+            <img 
+                src="asset/logos/openai.svg" 
+                alt="OpenAI Logo" 
+                class="h-8 object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            <div class="toolcard">
+            <img 
+                src="asset/logos/openai.svg" 
+                alt="OpenAI Logo" 
+                class="h-8 object-contain opacity-70 hover:opacity-100 transition-opacity duration-300"
+            ></div>
+            
+
     </section>
 
     <section class="relative w-full py-24 overflow-hidden">
@@ -106,45 +153,12 @@
             window.addEventListener('load', () => {
                 const heroSection = document.querySelector('.herosec');
                 if (heroSection) {
+                    // This class is needed for the CSS animations to fire
                     heroSection.classList.add('anim-active');
                 }
             });
         });
-        const canvas = document.getElementById('hero-video');
-        const ctx = canvas.getContext('2d');
-
-        const totalFrames = 99;
-        let currentFrame = 1;
-
-        const img = new Image();
-
-        let lastFrameTime = 0;
-        const desiredFPS = 20; 
-        const frameDuration = 1000 / desiredFPS;
-
-        function loadNextFrame(timestamp) {
-            if (!lastFrameTime) lastFrameTime = timestamp;
-
-            if (timestamp - lastFrameTime >= frameDuration) {
-                const frameNumber = String(currentFrame).padStart(4, '0');
-                img.src = `asset/sequencefilter/${frameNumber}.png`;
-
-                img.onload = () => {
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(img, 0, 0);
-                };
-
-                currentFrame = currentFrame >= totalFrames ? 1 : currentFrame + 1;
-                lastFrameTime = timestamp;
-            }
-
-            requestAnimationFrame(loadNextFrame);
-        }
-
-        // IMPORTANT: this must be called with RAF, not directly!
-        requestAnimationFrame(loadNextFrame);
+        // The image sequence JavaScript has been completely removed.
     </script>
 </body>
 </html>
