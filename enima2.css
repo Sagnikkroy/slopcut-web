@@ -73,3 +73,29 @@
     display: inline;
     font-style: italic; 
 }
+
+/* --- SCROLLABLE TOOL CARDS STYLES --- */
+
+/* Base container for the scrollable area - already has flex/overflow-x-scroll from Tailwind */
+.new-tool-cards-container {
+    /* Optional: Style to hide default scrollbar on some browsers */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide scrollbar on Webkit (Chrome, Safari) */
+.new-tool-cards-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Style for individual cards (optional: for hover effect) */
+.tool-card-item {
+    background-color: #0d121c00; /* Darker than body background for contrast */
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.tool-card-item:hover {
+    background-color: #1218254d;
+    border-color: #ffffff33; /* A slight increase in border visibility */
+    /* Subtle lift on hover */
+}
