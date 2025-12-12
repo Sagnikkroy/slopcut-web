@@ -90,12 +90,48 @@
 
 /* Style for individual cards (optional: for hover effect) */
 .tool-card-item {
-    background-color: #0d121c00; /* Darker than body background for contrast */
-    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+  /*
+    Dimensions are omitted as requested, focusing only on styling.
+    Add padding, width, and height as needed.
+  */
+  padding: 12px 24px; /* Matches --zfdxv0 from Framer */
+  
+  /* 1. Background Gradient (Dark to Darker) */
+  background: linear-gradient(
+    rgba(28, 32, 38, 0.259) 0%,   /* Darker top/start color */
+    rgba(18, 22, 28, 0.384) 100%  /* Darkest bottom/end color */
+  );
+  
+  /* 2. Rounded Corners */
+  border-radius: 16px; 
+  
+  /* 3. The Dual Inset Box Shadows (Key to the Framer "Elevated" Look) */
+  box-shadow: 
+    /* Light Inset Shadow (Top/Left - Creates highlight) */
+    inset 2px 2px 4px 0px rgba(255, 255, 255, 0.05),
+    
+    /* Dark Inset Shadow (Bottom/Right - Creates depth) */
+    inset -2px -2px 6px 0px rgba(0, 0, 0, 0.15);
+    
+  /* 4. Optional: Transition for smooth hover effects */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+} 
+
+/*
+  Optional: If you need to style the text inside the button
+  (Assuming the text is inside a class like .card-label)
+*/
+.card-label {
+  color: rgb(255, 255, 255);
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.4px;
+  line-height: 24px;
+  text-align: center;
 }
 
 .tool-card-item:hover {
-    background-color: #1218254d;
+    
     border-color: #ffffff33; /* A slight increase in border visibility */
     /* Subtle lift on hover */
 }
