@@ -280,9 +280,9 @@ em {
 
     /* Blob positions are relative to the new, taller .herosec, allowing them to blend smoothly into the bottom */
 /* --- BLOB POSITIONS (Desktop) --- */
-.blob-4 { top: 25%; left: 0%; width: 100px; height: 50px; background: linear-gradient(180deg, rgba(11, 63, 251, 0.9), rgba(37, 99, 235, 0.9)); animation-delay: -1s; }
-.blob-5 { top: 25%; left: 0%; width: 100px; height: 50px; background: linear-gradient(180deg, rgba(0, 13, 255, 0.8), rgba(138, 29, 253, 0.8)); animation-delay: -3s; }
-.blob-6 { top: 25%; left: 0%; width: 150px; height: 50px; background: linear-gradient(180deg, rgba(13, 0, 255, 0.8), rgba(147, 51, 234, 0.8)); animation-delay: -5s; }
+.blob-4 { top: 25%; left: -30%; width: 100px; height: 50px; background: linear-gradient(180deg, rgba(11, 63, 251, 0.9), rgba(37, 99, 235, 0.9)); animation-delay: -1s; }
+.blob-5 { top: 30%; left: -10%; width: 100px; height: 50px; background: linear-gradient(180deg, rgba(0, 13, 255, 0.8), rgba(138, 29, 253, 0.8)); animation-delay: -3s; }
+.blob-6 { top: 30%; left: 30%; width: 150px; height: 50px; background: linear-gradient(180deg, rgba(13, 0, 255, 0.8), rgba(147, 51, 234, 0.8)); animation-delay: -5s; }
 .blob-7 { top: 25%; left: 45%; width: 100px; height: 120px; background: linear-gradient(180deg, rgba(75, 56, 248, 0.8), rgba(37, 99, 235, 0.8)); animation-delay: -2.5s; }
 .blob-7p1 { top: 25%; left: 0%; width: 100px; height: 80px; background: linear-gradient(180deg, rgba(75, 56, 248, 0.8), rgba(37, 99, 235, 0.8)); animation-delay: -2.5s; }
 .blob-8 { top: 25%; left: 55%; width: 50px; height: 20px; background: linear-gradient(180deg, rgb(47, 0, 255), rgba(59, 130, 246, 0.8)); animation-delay: -4.5s; }
@@ -291,7 +291,7 @@ em {
 .blob-3 { top: 5%; right: 0%; width: 80px; height: 300px; background: linear-gradient(180deg, rgba(25, 0, 255, 0.6), rgba(59, 130, 246, 0.5)); animation-delay: -4s; }
 .blob-3p1 { top: 20%; right: 5%; width: 100px; height: 200px; background: linear-gradient(180deg, rgba(25, 0, 255, 0.6), rgba(59, 130, 246, 0.5)); animation-delay: -4s; }
 
-    .headingleft { font-size: 2.0rem; }
+    .headingleft { font-size: 2.0rem; } 
     .intro { font-size: 1.2rem; }
 
     /* === NEW STYLES FOR SECTION 2 IMAGE ON MOBILE === */
