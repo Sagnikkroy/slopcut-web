@@ -98,7 +98,7 @@
   
   /* 1. Background Gradient (Dark to Darker) */
   background: linear-gradient(
-    rgba(28, 32, 38, 0.503) 0%,   /* Darker top/start color */
+    rgba(28, 32, 38, 0.582) 0%,   /* Darker top/start color */
     rgba(18, 22, 28, 0.384) 100%  /* Darkest bottom/end color */
   );
   
@@ -108,7 +108,7 @@
   /* 3. The Dual Inset Box Shadows (Key to the Framer "Elevated" Look) */
   box-shadow: 
     /* Light Inset Shadow (Top/Left - Creates highlight) */
-    inset 2px 2px 4px 0px rgba(255, 255, 255, 0.05),
+    inset 2px 2px 4px 0px rgba(255, 255, 255, 0.114),
     
     /* Dark Inset Shadow (Bottom/Right - Creates depth) */
     inset -2px -2px 6px 0px rgba(0, 0, 0, 0.15);
